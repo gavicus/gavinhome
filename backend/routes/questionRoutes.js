@@ -6,13 +6,13 @@ const {
   updateQuestion,
   deleteQuestion 
 } = require('../controllers/questionController')
+const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(getQuestions).post(createQuestion)
-router.route('/:id').delete(deleteQuestion).put(updateQuestion)
-
-// router.get('/', getQuestions)
-// router.post('/', createQuestion)
-// router.put('/:id', updateQuestion)
-// router.delete('/:id', deleteQuestion)
+router.route('/')
+  .get(protect, getQuestions)
+  .post(protect, createQuestion)
+router.route('/:id')
+  .delete(protect, deleteQuestion)
+  .put(protect, updateQuestion)
 
 module.exports = router

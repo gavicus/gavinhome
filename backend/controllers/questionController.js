@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Question = require('../models/questionModel')
+const User = require('../models/userModel')
 
 const getQuestions = asyncHandler(async (req, res) => {
   const questions = await Question.find()
@@ -23,6 +24,16 @@ const createQuestion = asyncHandler(async (req, res) => {
     }
   }
 
+  const user = await User.findById(req.user.id)
+  if (!user) {
+    res.status(401)
+    throw new Error('user not found')
+  }
+  if (!user.admin) {
+    res.status(401)
+    throw new Error('user not authorized')
+  }
+
   const question = await Question.create({
     subject: req.body.subject,
     type: req.body.type,
@@ -42,6 +53,16 @@ const updateQuestion = asyncHandler(async (req, res) => {
     throw new Error('question not found')
   }
 
+  const user = await User.findById(req.user.id)
+  if (!user) {
+    res.status(401)
+    throw new Error('user not found')
+  }
+  if (!user.admin) {
+    res.status(401)
+    throw new Error('user not authorized')
+  }
+
   const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
   res.status(200).json(updatedQuestion)
@@ -53,6 +74,16 @@ const deleteQuestion = asyncHandler(async (req, res) => {
   if (!question) {
     res.status(400)
     throw new Error('question not found')
+  }
+
+  const user = await User.findById(req.user.id)
+  if (!user) {
+    res.status(401)
+    throw new Error('user not found')
+  }
+  if (!user.admin) {
+    res.status(401)
+    throw new Error('user not authorized')
   }
 
   const deletedQuestion = await Question.findByIdAndDelete(req.params.id)
