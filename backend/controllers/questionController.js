@@ -1,24 +1,66 @@
 const asyncHandler = require('express-async-handler')
 
+const Question = require('../models/questionModel')
+
 const getQuestions = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Get questions' })
+  const questions = await Question.find()
+
+  res.status(200).json(questions)
 })
 
 const createQuestion = asyncHandler(async (req, res) => {
-  console.log('req.body',req.body)
-  if (!req.body.question) {
-    res.status(400)
-    throw new Error('question field required')
+  const fields = [
+    'subject', // japanese, russian
+    'type', // hiragana, katakana, kanji
+    'question',
+    'answer',
+    // 'message', // not required
+  ]
+  for (const field of fields) {
+    if (!req.body[field]) {
+      res.status(400)
+      throw new Error(`${field} field required`)
+    }
   }
-  res.status(200).json({ message: 'Create question'})
+
+  const question = await Question.create({
+    subject: req.body.subject,
+    type: req.body.type,
+    question: req.body.question,
+    answer: req.body.answer,
+    message: req.body.message,
+  })
+
+  res.status(200).json(question)
 })
 
 const updateQuestion = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update question ${req.params.id}`})
+  const question = await Question.findById(req.params.id)
+
+  if (!question) {
+    res.status(400)
+    throw new Error('question not found')
+  }
+
+  const updatedQuestion = await Question.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+  res.status(200).json(updatedQuestion)
 })
 
 const deleteQuestion = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Delete question ${req.params.id}`})
+  const question = await Question.findById(req.params.id)
+
+  if (!question) {
+    res.status(400)
+    throw new Error('question not found')
+  }
+
+  const deletedQuestion = await Question.findByIdAndDelete(req.params.id)
+
+  res.status(200).json({
+    id: req.params.id,
+    item: deletedQuestion
+  })
 })
 
 module.exports = {
