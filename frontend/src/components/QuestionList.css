@@ -1,0 +1,8 @@
+.linkRow {
+  cursor: pointer;
+}
+
+.linkRow:hover {
+  color: white;
+  background: #777;
+}

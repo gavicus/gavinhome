@@ -9,6 +9,23 @@ const getQuestions = asyncHandler(async (req, res) => {
   res.status(200).json(questions)
 })
 
+const getOneQuestion = asyncHandler(async (req, res) => {
+  const question = await Question.findById(req.params.id)
+
+  if (!question) {
+    res.status(400)
+    throw new Error('question not found')
+  }
+
+  const user = await User.findById(req.user.id)
+  if (!user) {
+    res.status(401)
+    throw new Error('user not found')
+  }
+
+  res.status(200).json(question)
+})
+
 const createQuestion = asyncHandler(async (req, res) => {
   const fields = [
     'subject', // japanese, russian
@@ -99,4 +116,5 @@ module.exports = {
   createQuestion,
   updateQuestion,
   deleteQuestion,
+  getOneQuestion,
 }

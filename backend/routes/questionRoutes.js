@@ -4,7 +4,8 @@ const {
   getQuestions,
   createQuestion,
   updateQuestion,
-  deleteQuestion 
+  deleteQuestion,
+  getOneQuestion
 } = require('../controllers/questionController')
 const { protect } = require('../middleware/authMiddleware')
 
@@ -14,5 +15,6 @@ router.route('/')
 router.route('/:id')
   .delete(protect, deleteQuestion)
   .put(protect, updateQuestion)
+  .get(protect, getOneQuestion)
 
 module.exports = router
