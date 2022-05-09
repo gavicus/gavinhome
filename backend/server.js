@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const colors = require('colors')
 const dotenv = require('dotenv').config()
@@ -15,6 +16,18 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/questions', require('./routes/questionRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
+
+// production env for heroku deployment
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/build')))
+  app.get("*", (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, "../", "frontend", "build", "index.html")
+    )
+  );
+} else {
+  app.get('/', (req, res) => res.send('should be in production mode'))
+}
 
 app.use(errorHandler)
 

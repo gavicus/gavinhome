@@ -6,6 +6,11 @@ import { getQuestions, reset } from '../../features/questions/questionSlice'
 import QuestionList from '../../components/QuestionList'
 import { Spinner } from '../../components/Spinner'
 
+/**
+ * TODO
+ * filters and sorting
+ */
+
 const Questions = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -25,17 +30,6 @@ const Questions = () => {
 
     return () => { dispatch(reset()) }
   }, [user, navigate, isError, message, dispatch])
-
-  // useEffect(() => {
-  //   dispatch(getQuestions())
-  //   return () => {
-  //     dispatch(reset())
-  //   }
-  // }, [dispatch])
-
-  // useEffect(() => {
-  //   console.log(questions)
-  // }, [questions])
 
   if (isLoading) {
     return <Spinner />

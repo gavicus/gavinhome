@@ -1,0 +1,25 @@
+.question {
+  font-size: 35px;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+button.answer {
+  padding: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  border: none;
+}
+
+button.answer:hover {
+  background: #fec;
+}
+
+button.continue {
+  margin: 20px auto 0;
+}
