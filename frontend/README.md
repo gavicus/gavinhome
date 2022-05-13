@@ -51,3 +51,10 @@ flashcards score report page
   question answer right wrong
 
 ## DONE
+
+## deploy to heroku
+heroku login
+git add .
+git commit -m 'commit message'
+git push heroku master
+heroku open
