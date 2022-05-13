@@ -18,6 +18,7 @@ button.answer {
 
 button.answer:hover {
   background: #fec;
+  cursor: pointer;
 }
 
 button.continue {

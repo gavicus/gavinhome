@@ -1,0 +1,10 @@
+
+section.score-table {
+  display: flex;
+  justify-content: center;
+}
+
+section.score-table td {
+  text-align: left;
+  padding: 0 30px;
+}

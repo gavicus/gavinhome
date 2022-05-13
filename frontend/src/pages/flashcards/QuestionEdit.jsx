@@ -7,8 +7,8 @@ import {
   deleteQuestion,
   updateQuestion,
   reset,
-} from "../features/questions/questionSlice";
-import { QuestionForm } from "../components/QuestionForm"
+} from "../../features/questions/questionSlice";
+import { QuestionForm } from "../../components/QuestionForm"
 
 export const QuestionEdit = () => {
   const navigate = useNavigate()

@@ -6,10 +6,11 @@ import { logout, reset } from '../features/auth/authSlice'
 
 function NavMenu({show, onClick}) {
   const menuItems = [
-    // { name: 'Goals', link: '/' },
     { name: 'Flash Cards', link: '/flashcards' },
     { name: 'Questions', link: '/questions' },
     { name: 'Create Question', link: '/questionnew' },
+    { name: 'Score Report', link: '/flashcards/scorereport' },
+    { name: 'Test', link: '/test' },
   ]
 
   const onLink = (event) => {

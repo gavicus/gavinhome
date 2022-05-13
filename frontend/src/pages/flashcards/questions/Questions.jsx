@@ -2,9 +2,9 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getQuestions, reset } from '../../features/questions/questionSlice'
-import QuestionList from '../../components/QuestionList'
-import { Spinner } from '../../components/Spinner'
+import { getQuestions, reset } from '../../../features/questions/questionSlice'
+import QuestionList from '../../../components/QuestionList'
+import { Spinner } from '../../../components/Spinner'
 
 /**
  * TODO

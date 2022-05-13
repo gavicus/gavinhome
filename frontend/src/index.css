@@ -234,3 +234,46 @@ h3 {
 .listTable td {
   padding: 0 20px;
 }
+
+.form-border {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+button.btn:disabled {
+  background-color: lightgray;
+  border-color: lightgray;
+  cursor: not-allowed;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.closable {
+  cursor: pointer;
+}
+
+.closable:hover {
+  color: blue;
+}
+
+section.content {
+  margin-top: 10px;
+}
+
+section.message {
+  cursor: pointer;
+}
+
+section.optionRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+section.optionRow .form-group {
+  flex-grow: 1;
+}

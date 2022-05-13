@@ -2,8 +2,8 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { QuestionForm } from "../../components/QuestionForm"
-import { createQuestion, reset } from '../../features/questions/questionSlice'
+import { QuestionForm } from "../../../components/QuestionForm"
+import { createQuestion, reset } from '../../../features/questions/questionSlice'
 
 export const QuestionNew = () => {
   const navigate = useNavigate()
@@ -20,6 +20,7 @@ export const QuestionNew = () => {
   const onSubmit = (data) => {
     dispatch(createQuestion(data))
     navigate('/questions')
+    return () => { dispatch(reset()) }
   }
 
   return (

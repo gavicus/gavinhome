@@ -11,7 +11,6 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('please add all fields')
   }
 
-  // check if user already exists
   const userExists = await User.findOne({email})
   if (userExists) {
     res.status(400)
@@ -59,9 +58,10 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 })
 
-// const registerUser = asyncHandler(async (req, res) => {
-//   res.json({ message: 'register user' })
-// })
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find()
+  res.status(200).json(users)
+})
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' })
@@ -71,4 +71,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+  getUsers,
 }

@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler')
-
 const Question = require('../models/questionModel')
 const User = require('../models/userModel')
 
@@ -111,10 +110,19 @@ const deleteQuestion = asyncHandler(async (req, res) => {
   })
 })
 
+const getSubjects = asyncHandler(async (req, res) => {
+  const questions = await Question.find()
+  const all = questions.map(q => q.subject)
+  const unique = new Set(all)
+  const result = Array.from(unique)
+  res.status(200).json(result)
+})
+
 module.exports = {
   getQuestions,
   createQuestion,
   updateQuestion,
   deleteQuestion,
   getOneQuestion,
+  getSubjects,
 }

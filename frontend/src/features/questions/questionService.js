@@ -12,6 +12,16 @@ const getQuestions = async(token) => {
   return response.data
 }
 
+const getSubjects = async(token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  const response = await axios.get(API_URL + 'subjects', config)
+  return response.data
+}
+
 const getOneQuestion = async(questionId, token) => {
   const config = {
     headers: {
@@ -60,6 +70,7 @@ const questionService = {
   getOneQuestion,
   deleteQuestion,
   updateQuestion,
+  getSubjects,
 }
 
 export default questionService

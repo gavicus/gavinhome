@@ -6,9 +6,11 @@ import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { Header } from './components/Header'
 import Flashcards from './pages/flashcards'
-import Questions from './pages/questions'
-import { QuestionNew } from './pages/questionNew/QuestionNew'
-import { QuestionEdit } from './pages/QuestionEdit'
+import { ScoreReport } from './pages/flashcards/ScoreReport'
+import Questions from './pages/flashcards/questions'
+import { QuestionNew } from './pages/flashcards/questionNew/QuestionNew'
+import { QuestionEdit } from './pages/flashcards/QuestionEdit'
+import { Test } from './pages/test/Test'
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path='/questions' element={<Questions />} />
           <Route path='/questionnew' element={<QuestionNew />} />
           <Route path='/questionedit/:id' element={<QuestionEdit />} />
+          <Route path='/flashcards/scorereport' element={<ScoreReport />} />
+          <Route path='/test' element={<Test />} />
         </Routes>
       </div>
     </Router>
