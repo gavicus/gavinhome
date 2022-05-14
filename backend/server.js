@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/api/questions', require('./routes/questionRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/score', require('./routes/scoreRoutes'))
+app.use('/api/todo', require('./routes/todoRoutes'))
 
 // production env for heroku deployment
 if (process.env.NODE_ENV === 'production') {

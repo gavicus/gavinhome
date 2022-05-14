@@ -52,12 +52,11 @@ create a todo list app
 
 for each question entry, allow a list of similar question IDs for wrong answers
 
-after you select an answer, right and wrong options are highlighted. 
-  make that highlight easier to see
-
 
 
 ## DONE
+after you select an answer, right and wrong options are highlighted. 
+  make that highlight easier to see
 take wrong answers from the whole list (within subject & type) not just from questions selected for the quiz
 quiz generation easy questions: prioritize lowest right+wrong
 take 75% of quiz questions from the lowest right+wrong and the last quarter randomly from the remainder of the list

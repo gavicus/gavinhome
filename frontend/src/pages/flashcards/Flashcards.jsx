@@ -76,9 +76,6 @@ const Flashcards = () => {
       draftDeck.push(entry)
     }
     shuffle(draftDeck)
-
-    console.log({draftDeck})
-
     setDeck(draftDeck)
     setQuestionIndex(0)
   }
@@ -122,10 +119,7 @@ const Flashcards = () => {
         data["wrong"] = 1;
       }
 
-      console.log('looking for question object',question)
-      console.log('from',deck)
       const questionObject = deck.find(q => q.id === question.id)
-      console.log('questionObject',questionObject)
       data["question"] = question.id
       data['subject'] = question.subject
       data['user'] = user._id
@@ -153,7 +147,6 @@ const Flashcards = () => {
     setChosenAnswer(null)
     setShowAnswer(false)
     if (questionIndex === deck.length - 1) {
-      console.log('the end')
       setTestDone(true)
     } else {
       setQuestionIndex((previous) => previous + 1)
