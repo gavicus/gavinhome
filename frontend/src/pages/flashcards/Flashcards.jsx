@@ -78,7 +78,7 @@ const Flashcards = () => {
     shuffle(draftDeck)
 
     console.log({draftDeck})
-    
+
     setDeck(draftDeck)
     setQuestionIndex(0)
   }
@@ -160,14 +160,14 @@ const Flashcards = () => {
     }
   }
 
-  const buttonColor = (opt) => {
+  const buttonStyle = (opt) => {
     return showAnswer
       ? opt.correct 
-        ? 'green'
+        ? { color: 'green', boxShadow: 'inset 0 0 10px #0c0' }
         : chosenAnswer.answer === opt.answer
-          ? 'red'
-          : 'gray'
-      : 'black'
+          ? { color: 'red', boxShadow: 'inset 0 0 10px #f00' }
+          : { color: 'gray' }
+      : { color: 'black' }
   }
 
   const renderQuiz = () => (
@@ -179,7 +179,7 @@ const Flashcards = () => {
             key={opt.answer}
             className="answer"
             onClick={() => onAnswer(opt)}
-            style={{ color: buttonColor(opt) }}
+            style={buttonStyle(opt)}
           >
             {opt.answer}
           </button>

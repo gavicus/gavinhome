@@ -9,11 +9,12 @@
 }
 
 button.answer {
-  padding: 5px;
+  padding: 8px;
   margin-right: 10px;
   margin-bottom: 10px;
   font-size: 20px;
   border: none;
+  border-radius: 8px;
 }
 
 button.answer:hover {
