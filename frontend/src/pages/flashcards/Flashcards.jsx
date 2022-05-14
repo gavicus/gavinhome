@@ -41,17 +41,15 @@ const Flashcards = () => {
       return
     }
     const scoreEntries = createScoreEntries(dbScores,questions,user)
-    console.log('scoreEntries',scoreEntries)
     const sortedEntries = scoreEntries
       .filter(e => e.subject === selectedSubject)
-      .sort((a,b) => a.score - b.score)
+      .sort((a,b) => a.right + a.wrong - (b.right + b.wrong))
     const hardCount = Math.floor(questionCount * .75)
-    const easyCount = questionCount - hardCount
     const hardQuestions = sortedEntries.slice(0,hardCount)
-    const oneQuarter = Math.floor(sortedEntries.length * .25)
-    const easyOnes = sortedEntries.slice(-oneQuarter)
-    shuffle(easyOnes)
-    const easyQuestions = easyOnes.slice(-easyCount)
+    const easyCount = questionCount - hardCount
+    const leftOvers = sortedEntries.slice(hardCount)
+    shuffle(leftOvers)
+    const easyQuestions = leftOvers.slice(-easyCount)
     const quizEntries = [...hardQuestions, ...easyQuestions]
 
     const draftDeck = []
