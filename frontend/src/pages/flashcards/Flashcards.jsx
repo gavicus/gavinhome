@@ -54,9 +54,10 @@ const Flashcards = () => {
 
     const draftDeck = []
     for (const question of quizEntries) {
-      const candidates = quizEntries.filter(
-        (q) => q.type === question.type && q.answer !== question.answer
+      const candidates = scoreEntries.filter(
+        (q) => q.type === question.type && q.answer !== question.answer && q.subject === question.subject
       );
+      shuffle(candidates)
       const wrongAnswers = candidates
         .slice(0, optionCount - 1)
         .map((w) => ({ answer: w.answer, correct: false }));
@@ -75,6 +76,9 @@ const Flashcards = () => {
       draftDeck.push(entry)
     }
     shuffle(draftDeck)
+
+    console.log({draftDeck})
+    
     setDeck(draftDeck)
     setQuestionIndex(0)
   }

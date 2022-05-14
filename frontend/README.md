@@ -49,14 +49,16 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 redirect to login if not logged in
 give login page a link to register
 create a todo list app
-take wrong answers from the whole list (within subject & type) not just from questions selected for the quiz
+
 for each question entry, allow a list of similar question IDs for wrong answers
+
 after you select an answer, right and wrong options are highlighted. 
   make that highlight easier to see
 
 
 
 ## DONE
+take wrong answers from the whole list (within subject & type) not just from questions selected for the quiz
 quiz generation easy questions: prioritize lowest right+wrong
 take 75% of quiz questions from the lowest right+wrong and the last quarter randomly from the remainder of the list
 if the question is kanji, the answer should be hiragana and the message english
