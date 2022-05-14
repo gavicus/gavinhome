@@ -52,7 +52,7 @@ export const Header = () => {
   const onLinkClick = () => {
     setShowMenu(false)
   }
-  
+
   return (
     <header className='header'>
       <div className='logo'>
@@ -62,8 +62,12 @@ export const Header = () => {
         { user ? (
           <>
             <li>
-              <button className='btn' onClick={onMenuClick}>menu</button>
-              <NavMenu show={showMenu} onClick={onLinkClick} />
+              {(user.admin === true || user.admin === 'true') &&
+                <>
+                  <button className='btn' onClick={onMenuClick}>menu</button>
+                  <NavMenu show={showMenu} onClick={onLinkClick} />
+                </>
+              }
             </li>
             <li>
               <span><FaUser />{user.name}</span>

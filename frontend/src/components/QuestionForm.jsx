@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 export const QuestionForm = ({onSubmit, question: original}) => {
   const [formData, setFormData] = useState({
     subject: 'japanese',
-    type: 'hiragana',
+    type: 'kanji',
     question: '',
     answer: '',
     message: '',
