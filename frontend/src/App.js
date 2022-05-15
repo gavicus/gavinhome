@@ -11,6 +11,8 @@ import Questions from './pages/flashcards/questions'
 import { QuestionNew } from './pages/flashcards/questionNew/QuestionNew'
 import { QuestionEdit } from './pages/flashcards/QuestionEdit'
 import { Test } from './pages/test/Test'
+import { TodoList } from './pages/todo/TodoList'
+import { TodoEdit } from './pages/todo/TodoEdit'
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path='/questionedit/:id' element={<QuestionEdit />} />
           <Route path='/flashcards/scorereport' element={<ScoreReport />} />
           <Route path='/test' element={<Test />} />
+          <Route path='/todo' element={<TodoList />} />
+          <Route path='/todoedit/:id' element={<TodoEdit />} />
         </Routes>
       </div>
     </Router>

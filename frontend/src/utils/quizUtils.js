@@ -1,7 +1,29 @@
 
 export const createScoreEntries = (scoreList, questionList, loggedUser) => {
+
+
+
   if (!scoreList || !questionList || !loggedUser) return []
-  const amendedScores = [...scoreList]
+  let amendedScores = [...scoreList]
+
+  // find orphan scores
+  // for (const s of amendedScores) {
+  //   const question = questionList.find(q => q._id === s.question)
+  //   if (!question) {
+  //     console.log('orphan found',s)
+  //     s['remove'] = 1
+  //   }
+  // }
+  // amendedScores = amendedScores.filter(s => !s.remove)
+
+  console.log('amendedScores length',amendedScores.length)
+  amendedScores = amendedScores.filter((score) => {
+    const question = questionList.find(q => q._id === score.question)
+    if (!question) { return false }
+    return true
+  })
+  console.log('amendedScores length',amendedScores.length)
+
   for (const q of questionList) {
     const score = amendedScores.find(s => s.question === q._id)
     if (!score) {
@@ -19,17 +41,24 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
     const percentage = trys ? s.right / trys : 0
     const score = Math.floor(percentage * 100)
     const question = questionList.find(q => q._id === s.question)
-    return ({
-      question: question.question,
-      answer: question.answer,
-      right: s.right,
-      wrong: s.wrong,
-      questionId: question._id,
-      scoreId: s._id,
-      score: score,
-      type: question.type,
-      subject: question.subject,
-      message: question.message,
-    })
+    try {
+      return ({
+        question: question.question,
+        answer: question.answer,
+        right: s.right,
+        wrong: s.wrong,
+        questionId: question._id,
+        scoreId: s._id,
+        score: score,
+        type: question.type,
+        subject: question.subject,
+        message: question.message,
+      })
+    } catch (e) {
+      console.log({question})
+      console.log({s})
+      console.log({questionList})
+      console.log({e})
+    }
   } )
 }

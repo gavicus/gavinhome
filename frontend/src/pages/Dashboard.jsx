@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 export const Dashboard = () => {
   const links = [
     { name: 'Flash Cards', link: '/flashcards' },
+    { name: 'Todo', link: '/todo' },
   ]
 
   return (
