@@ -33,22 +33,13 @@ const getOneQuestion = async(questionId, token) => {
 }
 
 const createQuestion = async (data, token) => {
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }
+  const config = { headers: { Authorization: `Bearer ${token}` } }
   const response = await axios.post(API_URL, data, config)
   return response.data
 }
 
 const deleteQuestion = async(questionId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  }
+  const config = { headers: { Authorization: `Bearer ${token}` } }
   const response = await axios.delete(API_URL + questionId, config)
   return response.data
 }

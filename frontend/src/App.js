@@ -13,6 +13,7 @@ import { QuestionEdit } from './pages/flashcards/QuestionEdit'
 import { Test } from './pages/test/Test'
 import { TodoList } from './pages/todo/TodoList'
 import { TodoEdit } from './pages/todo/TodoEdit'
+import { TodoCreate } from './pages/todo/TodoCreate'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path='/test' element={<Test />} />
           <Route path='/todo' element={<TodoList />} />
           <Route path='/todoedit/:id' element={<TodoEdit />} />
+          <Route path='/todocreate' element={<TodoCreate />} />
         </Routes>
       </div>
     </Router>
