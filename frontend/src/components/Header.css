@@ -2,17 +2,22 @@
   background-color: #e5e5e5;
   font-size: 20px;
   padding: 0 20px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
 
 .logo {
   padding-top: 2px;
   line-height: 15px;
+  min-width: 135px;
 }
 
 .userItems {
   display: flex;
   align-items: baseline;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .logotext {

@@ -14,6 +14,7 @@ import { Test } from './pages/test/Test'
 import { TodoList } from './pages/todo/TodoList'
 import { TodoEdit } from './pages/todo/TodoEdit'
 import { TodoCreate } from './pages/todo/TodoCreate'
+import { Illum } from './pages/illum/Illum'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path='/todo' element={<TodoList />} />
           <Route path='/todoedit/:id' element={<TodoEdit />} />
           <Route path='/todocreate' element={<TodoCreate />} />
+          <Route path='/illum' element={<Illum />} />
         </Routes>
       </div>
     </Router>
