@@ -6,23 +6,11 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
   if (!scoreList || !questionList || !loggedUser) return []
   let amendedScores = [...scoreList]
 
-  // find orphan scores
-  // for (const s of amendedScores) {
-  //   const question = questionList.find(q => q._id === s.question)
-  //   if (!question) {
-  //     console.log('orphan found',s)
-  //     s['remove'] = 1
-  //   }
-  // }
-  // amendedScores = amendedScores.filter(s => !s.remove)
-
-  console.log('amendedScores length',amendedScores.length)
   amendedScores = amendedScores.filter((score) => {
     const question = questionList.find(q => q._id === score.question)
     if (!question) { return false }
     return true
   })
-  console.log('amendedScores length',amendedScores.length)
 
   for (const q of questionList) {
     const score = amendedScores.find(s => s.question === q._id)

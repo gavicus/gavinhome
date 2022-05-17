@@ -1,0 +1,44 @@
+.hovermenu {
+  --open-background: rgb(56, 62, 123);
+  --open-color: #d8d8d8;
+  --hover-color: #ffc;
+}
+
+.dropbtn {
+  cursor: pointer;
+  padding: 10px;
+  min-width: 150px;
+}
+
+.dropbtn:hover {
+  color: var(--hover-color);
+}
+
+.dropcontent {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  text-align: left;
+  background-color: var(--open-background);
+  color: var(--open-color);
+  padding: 10px;
+}
+
+.droplink {
+  cursor: pointer;
+  padding: 8px 16px;
+  color: var(--open-color);
+}
+
+.droplink:hover {
+  color: var(--hover-color);
+}
+
+.hovermenu:hover .dropcontent {
+  display: block;
+}
+
+.hovermenu:hover .dropbtn {
+  background: var(--open-background);
+  color: var(--open-color);
+}

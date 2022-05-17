@@ -18,9 +18,6 @@ export const ScoreReport = () => {
   const { user: loggedUser } = useSelector((state) => state.auth)
   const { questions } = useSelector((state) => state.questions)
 
-  // console.log('user',loggedUser)
-  // console.log('questions',questions)
-
   useEffect(() => {
     dispatch(getQuestions())
     return () => { dispatch(reset()) }
@@ -54,6 +51,10 @@ export const ScoreReport = () => {
   }
 
   const ScoreTable = () => {
+
+
+    console.log({scoreTableEntries})
+
     return (
       <section className="score-table">
         <table>
@@ -61,17 +62,21 @@ export const ScoreReport = () => {
             <tr>
               <th>question</th>
               <th>answer</th>
+              <th>message</th>
               <th>right</th>
               <th>wrong</th>
               <th>score</th>
             </tr>
           </thead>
           <tbody>
-            {scoreTableEntries.map((entry) => {
+            {scoreTableEntries
+              .sort((a,b) => (a.score - b.score))
+              .map((entry) => {
               return (
               <tr key={entry.question}>
-                <td>{entry.question}</td>
+                <td className='entryQuestion'>{entry.question}</td>
                 <td>{entry.answer}</td>
+                <td>{entry.message}</td>
                 <td>{entry.right}</td>
                 <td>{entry.wrong}</td>
                 <td>{entry.score}%</td>

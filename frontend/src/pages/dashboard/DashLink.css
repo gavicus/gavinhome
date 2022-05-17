@@ -1,0 +1,29 @@
+.dashLink {
+  display: flex;
+}
+
+.linkImage {
+  width: 70px;
+  height: 70px;
+}
+
+.linkText {
+  width: 300px;
+  background-color: #ddd;
+  padding: 0 10px;
+  text-align: left;
+}
+
+.linkText:hover {
+  background-color: #bbb;
+}
+
+.linkText .caption {
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 1.2em;
+}
+
+.linkText .detail {
+  font-size: .9em;
+}

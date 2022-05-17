@@ -8,3 +8,7 @@ section.score-table td {
   text-align: left;
   padding: 0 30px;
 }
+
+.entryQuestion {
+  font-size: 1.7em;
+}

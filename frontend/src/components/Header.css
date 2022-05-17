@@ -1,0 +1,24 @@
+.header {
+  background-color: #e5e5e5;
+  font-size: 20px;
+  padding: 0 20px;
+}
+
+.logo {
+  padding-top: 2px;
+  line-height: 15px;
+}
+
+.userItems {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.logotext {
+  display: inline-block;
+  font-size: 1.5em;
+  margin-left: 10px;
+  position: relative;
+  bottom: 6px;
+}
