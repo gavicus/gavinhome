@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 
-export const QuestionForm = ({onSubmit, question: original}) => {
+import './QuestionForm.css'
+
+export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   const [formData, setFormData] = useState({
     subject: 'japanese',
     type: 'kanji',
     question: '',
     answer: '',
     message: '',
+    similar: [],
   })
 
   const { subject, type, question, answer, message } = formData
@@ -36,6 +39,37 @@ export const QuestionForm = ({onSubmit, question: original}) => {
       [event.target.name]: event.target.value
     }))
   }
+
+  const onChangeSimilar = (event) => {
+    console.log({
+      name:event.target.name,
+      value:event.target.value,
+      existing:formData.similar,
+    })
+    // formData.similar.push(event.target.value)
+    setFormData(previous => ({
+      ...previous,
+      similar: [
+        ...previous.similar,
+        event.target.value
+      ]
+    }))
+  }
+
+  const onRemoveSimilar = (rid) => {
+    console.log({
+      rid,
+      answer:questionList.find(q=>q._id===rid).answer
+    })
+    setFormData(previous => ({
+      ...previous,
+      similar: formData.similar.filter(s=>s !== rid)
+    }))
+  }
+
+  useEffect(()=>{
+    console.log({formData})
+  },[formData])
 
   return (
     <>
@@ -111,6 +145,27 @@ export const QuestionForm = ({onSubmit, question: original}) => {
               onChange={onChange}
             />
           </div>
+
+          <div className="form-group">
+            {formData.similar.map(sid=>(
+              <div className='similarEntry' key={`selected-similar-${sid}`}>
+                {questionList.find(q=>q._id===sid).answer}
+                <button className="btn" type='button' onClick={() => onRemoveSimilar(sid)}>
+                  x
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor='similar'>Similar</label>
+            <select name="similar" onChange={onChangeSimilar}>
+              {questionList.map(q=>(
+                <option key={q._id} value={q._id}>{q.answer}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="form-group">
             <button className="btn" type="submit">
               { original ? "Submit" : "Create" }

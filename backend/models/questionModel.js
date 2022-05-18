@@ -21,6 +21,10 @@ const questionSchema = mongoose.Schema(
     message: {
       type: String,
       required: false,
+    },
+    similar: {
+      type: [String],
+      default: [],
     }
   },
   {

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  getOneQuestion,
+  getQuestions,
   deleteQuestion,
   updateQuestion,
   reset,
@@ -28,10 +28,14 @@ export const QuestionEdit = () => {
       navigate('/login')
     }
 
-    dispatch(getOneQuestion(id))
+    dispatch(getQuestions(id))
 
     return () => { dispatch(reset()) }
   }, [user, navigate, isError, message, dispatch, id])
+
+  useEffect(()=>{
+    console.log({questions})
+  },[questions])
 
   const onSubmit = (data) => {
     dispatch(updateQuestion({...data, _id: id}))
@@ -50,7 +54,11 @@ export const QuestionEdit = () => {
       <section className="heading">Question Edit</section>
       {questions && questions.length > 0 ? (
         <>
-          <QuestionForm onSubmit={onSubmit} question={questions[0]} />
+          <QuestionForm
+            onSubmit={onSubmit}
+            question={questions.find((q) => q._id === id)}
+            questionList={questions}
+          />
           <section className="form">
             <div className="form-group">
               <button className="btn" onClick={onDelete}>
@@ -63,5 +71,5 @@ export const QuestionEdit = () => {
         <div>no such question</div>
       )}
     </>
-  )
+  );
 }

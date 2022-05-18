@@ -31,7 +31,6 @@ const createQuestion = asyncHandler(async (req, res) => {
     'type', // hiragana, katakana, kanji
     'question',
     'answer',
-    // 'message', // not required
   ]
   for (const field of fields) {
     if (!req.body[field]) {
@@ -56,6 +55,7 @@ const createQuestion = asyncHandler(async (req, res) => {
     question: req.body.question,
     answer: req.body.answer,
     message: req.body.message,
+    similar: req.body.similar || [],
   })
 
   res.status(200).json(question)

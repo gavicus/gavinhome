@@ -1,0 +1,16 @@
+.similarEntry {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.similarEntry button {
+  padding: 0px 5px;
+  background: white;
+  color: brown;
+}
+
+.similarEntry button:hover {
+  background: brown;
+  color: white
+}
