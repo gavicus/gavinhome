@@ -1,8 +1,5 @@
 
 export const createScoreEntries = (scoreList, questionList, loggedUser) => {
-
-
-
   if (!scoreList || !questionList || !loggedUser) return []
   let amendedScores = [...scoreList]
 
@@ -29,6 +26,9 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
     const percentage = trys ? s.right / trys : 0
     const score = Math.floor(percentage * 100)
     const question = questionList.find(q => q._id === s.question)
+
+    // console.log({question})
+
     try {
       return ({
         question: question.question,
@@ -41,6 +41,7 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
         type: question.type,
         subject: question.subject,
         message: question.message,
+        similar: [...question.similar],
       })
     } catch (e) {
       console.log({question})

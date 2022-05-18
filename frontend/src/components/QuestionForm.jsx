@@ -41,12 +41,6 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   }
 
   const onChangeSimilar = (event) => {
-    console.log({
-      name:event.target.name,
-      value:event.target.value,
-      existing:formData.similar,
-    })
-    // formData.similar.push(event.target.value)
     setFormData(previous => ({
       ...previous,
       similar: [
@@ -57,19 +51,11 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   }
 
   const onRemoveSimilar = (rid) => {
-    console.log({
-      rid,
-      answer:questionList.find(q=>q._id===rid).answer
-    })
     setFormData(previous => ({
       ...previous,
       similar: formData.similar.filter(s=>s !== rid)
     }))
   }
-
-  useEffect(()=>{
-    console.log({formData})
-  },[formData])
 
   return (
     <>

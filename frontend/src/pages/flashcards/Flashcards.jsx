@@ -66,14 +66,27 @@ const Flashcards = () => {
       ...lowScoreQuestions,
       ...randomQuestions
     ]
+
+    // console.log({scoreEntries})
     
     const draftDeck = []
     for (const question of quizEntries) {
+      const similar = question.similar.map(sim => scoreEntries.find(se=>se.questionId === sim))
+
+      // console.log({question, similar})
+
       const candidates = scoreEntries.filter(
         (q) => q.type === question.type && q.answer !== question.answer && q.subject === question.subject
-      );
+      )
+
       shuffle(candidates)
-      const wrongAnswers = candidates
+
+      const wrongEntries = [
+        ...similar,
+        ...candidates
+      ]
+
+      const wrongAnswers = wrongEntries
         .slice(0, optionCount - 1)
         .map((w) => ({ answer: w.answer, correct: false }));
       const options = [
