@@ -9,7 +9,6 @@
 body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  padding: 130px 0;
 }
 
 #root {
@@ -81,6 +80,10 @@ h3 {
 
 .header ul li a svg {
   margin-right: 5px;
+}
+
+.pageContent {
+  margin-top: 50px;
 }
 
 .heading {

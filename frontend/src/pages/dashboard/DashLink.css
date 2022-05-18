@@ -14,7 +14,7 @@
   text-align: left;
 }
 
-.linkText:hover {
+.dashLink:hover .linkText {
   background-color: #bbb;
 }
 

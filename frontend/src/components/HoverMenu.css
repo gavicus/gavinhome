@@ -2,6 +2,8 @@
   --open-background: rgb(56, 62, 123);
   --open-color: #d8d8d8;
   --hover-color: #ffc;
+  z-index: 10;
+  position: relative;
 }
 
 .dropbtn {
@@ -22,6 +24,7 @@
   background-color: var(--open-background);
   color: var(--open-color);
   padding: 10px;
+  z-index: 10;
 }
 
 .droplink {

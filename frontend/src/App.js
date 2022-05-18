@@ -22,6 +22,7 @@ function App() {
     <Router>
       <div className='container'>
         <Header />
+        <div className='pageContent'>
         <Routes>
           <Route path='/' element={<Dashboard />} />
           <Route path='/login' element={<Login />} />
@@ -37,6 +38,7 @@ function App() {
           <Route path='/todocreate' element={<TodoCreate />} />
           <Route path='/illum' element={<Illum />} />
         </Routes>
+        </div>
       </div>
     </Router>
     <ToastContainer />
