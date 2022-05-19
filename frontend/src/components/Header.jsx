@@ -39,7 +39,7 @@ export const Header = () => {
     return (
       <div className='userItems'>
           {(user.admin === true || user.admin === 'true') &&
-            <HoverMenu menuItems={adminOptions}>Admin Menu</HoverMenu>
+            <HoverMenu menuItems={adminOptions}>Admin</HoverMenu>
           }
 
           <HoverMenu menuItems={userOptions}>

@@ -1,4 +1,4 @@
-
+import { Model } from './model'
 export class Control {
   constructor(viewObject) {
     this.view = viewObject
@@ -7,9 +7,11 @@ export class Control {
       last: { x:0, y:0 },
       shiftDown: false,
     }
+    this.model = new Model()
   }
 
   init() {
+    this.view.setFaction(this.model.factions[0])
     this.view.draw()
   }
 
