@@ -31,10 +31,11 @@ export class View {
   drawCard(card) {
     const {x,y} = card.tablePlace
     const screen = this.tableToScreen(x,y)
-    this.drawCardShape(x,y,false)
+    // card shape
+    card.screenRect = this.drawCardShape(x,y,false)
     this.context.fillStyle='#888'
     this.context.fill()
-
+    // title text
     this.context.fillStyle='#000'
     this.context.font = '14px Arial'
     this.context.textAlign='center'
@@ -81,6 +82,14 @@ export class View {
     this.draw()
   }
 
+  moveCard(card, dx, dy) {
+    console.log({moveCard:dx,dy})
+    card.screenRect.x += dx/this.zoom
+    card.screenRect.y += dy/this.zoom
+    const {x,y} = this.screenToTable(card.screenRect.x, card.screenRect.y)
+    card.tablePlace.set(x,y)
+  }
+
   moveFocus(dx, dy) {
     this.focus.move(dx/this.zoom, dy/this.zoom)
     this.draw()
@@ -94,6 +103,13 @@ export class View {
     return {
       x: this.canvas.width/2 + (tablex + this.focus.x) * this.zoom,
       y: this.canvas.height/2 + (tabley + this.focus.y) * this.zoom,
+    }
+  }
+
+  screenToTable(screenx, screeny) {
+    return {
+      x: (screenx - this.canvas.width/2) / this.zoom - this.focus.x,
+      y: (screeny - this.canvas.width/2) / this.zoom - this.focus.y,
     }
   }
 

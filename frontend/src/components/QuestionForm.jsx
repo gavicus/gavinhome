@@ -132,25 +132,29 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
             />
           </div>
 
-          <div className="form-group">
-            {formData.similar.map(sid=>(
-              <div className='similarEntry' key={`selected-similar-${sid}`}>
-                {questionList.find(q=>q._id===sid).answer}
-                <button className="btn" type='button' onClick={() => onRemoveSimilar(sid)}>
-                  x
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor='similar'>Similar</label>
-            <select name="similar" onChange={onChangeSimilar}>
-              {questionList.map(q=>(
-                <option key={q._id} value={q._id}>{q.answer}</option>
+          {questionList &&
+          <>
+            <div className="form-group">
+              {formData.similar.map(sid=>(
+                <div className='similarEntry' key={`selected-similar-${sid}`}>
+                  {questionList.find(q=>q._id===sid).answer}
+                  <button className="btn" type='button' onClick={() => onRemoveSimilar(sid)}>
+                    x
+                  </button>
+                </div>
               ))}
-            </select>
-          </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor='similar'>Similar</label>
+              <select name="similar" onChange={onChangeSimilar}>
+                {questionList.map(q=>(
+                  <option key={q._id} value={q._id}>{q.answer}</option>
+                ))}
+              </select>
+            </div>
+          </>
+          }
 
           <div className="form-group">
             <button className="btn" type="submit">

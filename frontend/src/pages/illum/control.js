@@ -6,12 +6,13 @@ export class Control {
       down: false,
       last: { x:0, y:0 },
       shiftDown: false,
+      card: null,
     }
     this.model = new Model()
   }
 
   init() {
-    this.view.setFaction(this.model.factions[0])
+    this.view.setFaction(this.model.getActiveFaction())
     this.view.draw()
   }
 
@@ -19,20 +20,32 @@ export class Control {
     this.mouse.down = true
     this.mouse.last.x = e.offsetX
     this.mouse.last.y = e.offsetY
+
+    const card = this.model.getCardFromScreen(e.offsetX, e.offsetY)
+    if (card) {
+      this.mouse.card = card
+      console.log({card})
+    }
   }
 
-  handleMouseUp(e) {
+  handleMouseUp() {
     this.mouse.down = false
+    this.mouse.card = null
   }
   
   handleMouseMove(e) {
     if (this.mouse.down) {
       const dx = e.offsetX - this.mouse.last.x
       const dy = e.offsetY - this.mouse.last.y
-      if (e.shiftKey) {
-        this.view.changeZoom(dy)
+      if (this.mouse.card) {
+        this.view.moveCard(this.mouse.card, dx, dy)
+        this.view.draw()
       } else {
-        this.view.moveFocus(dx,dy)
+        if (e.shiftKey) {
+          this.view.changeZoom(dy)
+        } else {
+          this.view.moveFocus(dx,dy)
+        }
       }
       this.mouse.last.x = e.offsetX
       this.mouse.last.y = e.offsetY

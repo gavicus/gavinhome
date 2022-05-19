@@ -10,6 +10,7 @@ class Card {
     this.id = id
     this.name = data.name
     this.tablePlace = new Point(0,0)
+    this.screenRect = null
   }
 }
 
@@ -61,6 +62,23 @@ export class Model {
     this.factions = []
     this.deck = null
     this.init()
+    this.activeFaction = 0
+  }
+
+  getActiveFaction () {
+    return this.factions[this.activeFaction]
+  }
+
+  getCardFromScreen (x,y) {
+    const fac = this.getActiveFaction()
+    for (const card of fac.table) {
+      const rect = card.screenRect
+      if (!rect) { continue }
+      if (x < rect.x || y < rect.y) { continue }
+      if (x > rect.x + rect.w) { continue }
+      if (y > rect.y + rect.h) { continue }
+      return card
+    }
   }
 
   init () {
