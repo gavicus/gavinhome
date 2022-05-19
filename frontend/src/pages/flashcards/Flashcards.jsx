@@ -197,7 +197,7 @@ const Flashcards = () => {
       <div className="answers-container">
         {deck[questionIndex].options.map((opt) => (
           <button
-            key={opt.answer}
+            key={'option' + deck[questionIndex].question._id + opt.answer}
             className="answer"
             onClick={() => onAnswer(opt)}
             style={buttonStyle(opt)}
