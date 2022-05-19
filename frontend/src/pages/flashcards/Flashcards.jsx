@@ -67,17 +67,17 @@ const Flashcards = () => {
       ...randomQuestions
     ]
 
-    // console.log({scoreEntries})
-    
     const draftDeck = []
     for (const question of quizEntries) {
       const similar = question.similar.map(sim => scoreEntries.find(se=>se.questionId === sim))
 
-      // console.log({question, similar})
-
       const candidates = scoreEntries.filter(
-        (q) => q.type === question.type && q.answer !== question.answer && q.subject === question.subject
-      )
+        (q) =>
+          q.type === question.type &&
+          q.answer !== question.answer &&
+          q.subject === question.subject &&
+          similar.indexOf(q) === -1
+      );
 
       shuffle(candidates)
 
@@ -88,9 +88,9 @@ const Flashcards = () => {
 
       const wrongAnswers = wrongEntries
         .slice(0, optionCount - 1)
-        .map((w) => ({ answer: w.answer, correct: false }));
+        .map((w) => ({ answer: w.answer, correct: false, key: question._id + w.questionId }));
       const options = [
-        { answer: question.answer, correct: true },
+        { answer: question.answer, correct: true, key: question._id + question._id },
         ...wrongAnswers
       ]
       shuffle(options)
@@ -197,7 +197,7 @@ const Flashcards = () => {
       <div className="answers-container">
         {deck[questionIndex].options.map((opt) => (
           <button
-            key={'option' + deck[questionIndex].question._id + opt.answer}
+            key={opt.key}
             className="answer"
             onClick={() => onAnswer(opt)}
             style={buttonStyle(opt)}
