@@ -3,14 +3,16 @@ import { useState, useEffect } from 'react'
 import './QuestionForm.css'
 
 export const QuestionForm = ({onSubmit, question: original, questionList}) => {
-  const [formData, setFormData] = useState({
+  const defaultData = {
     subject: 'japanese',
     type: 'kanji',
     question: '',
     answer: '',
     message: '',
     similar: [],
-  })
+  }
+  
+  const [formData, setFormData] = useState(defaultData)
 
   const { subject, type, question, answer, message } = formData
   const subjects = ['japanese','russian']
@@ -31,6 +33,7 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   const submitHandler = (event) => {
     event.preventDefault()
     onSubmit(formData)
+    setFormData(defaultData)
   }
 
   const onChange = (event) => {

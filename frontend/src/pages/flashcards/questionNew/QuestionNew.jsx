@@ -19,7 +19,8 @@ export const QuestionNew = () => {
 
   const onSubmit = (data) => {
     dispatch(createQuestion(data))
-    navigate('/questions')
+    // navigate('/questions')
+    
     return () => { dispatch(reset()) }
   }
 

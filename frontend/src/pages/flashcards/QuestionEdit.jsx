@@ -33,10 +33,6 @@ export const QuestionEdit = () => {
     return () => { dispatch(reset()) }
   }, [user, navigate, isError, message, dispatch, id])
 
-  useEffect(()=>{
-    console.log({questions})
-  },[questions])
-
   const onSubmit = (data) => {
     dispatch(updateQuestion({...data, _id: id}))
     navigate('/questions')
