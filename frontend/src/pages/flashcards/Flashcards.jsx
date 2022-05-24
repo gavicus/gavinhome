@@ -221,6 +221,9 @@ const Flashcards = () => {
   const renderDone = () => {
     const correctCount = score.filter(s => s.correct).length
     const percentage = Math.floor((correctCount / score.length) * 100)
+
+    console.log({score,correctCount,percentage})
+
     return (
       <>
         <div>done</div>

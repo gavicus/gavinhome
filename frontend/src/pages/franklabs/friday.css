@@ -1,0 +1,30 @@
+#canvas1 {
+  background: #000;
+  margin-top: 50px;
+}
+
+#friday-controls {
+  position: absolute;
+  padding: 10px;
+  border: 1px solid white;
+  left: 60px;
+  top: 110px;
+  width: 270px;
+  background: rgba(255,255,255,.15);
+  text-align: left;
+}
+
+#friday-controls button {
+  padding: 5px 40px;
+  width: 225px;
+  font-size: 20px;
+}
+
+#friday-controls label, #friday-controls input {
+  color: white;
+  font-size: 15px;
+}
+
+#friday-controls input[type="range"] {
+  margin-right: 10px;
+}

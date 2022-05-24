@@ -27,6 +27,7 @@ export const Header = () => {
     { name: 'Create Question', link: '/questionnew' },
     { name: 'Score Report', link: '/flashcards/scorereport' },
     { name: 'Illum', link: '/illum' },
+    { name: 'Frank Labs', link: '/frankmain' },
     { name: 'Test', link: '/test' },
   ]
 

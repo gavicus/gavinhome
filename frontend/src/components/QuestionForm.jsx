@@ -15,6 +15,7 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   const [formData, setFormData] = useState(defaultData)
 
   const { subject, type, question, answer, message } = formData
+
   const subjects = ['japanese','russian']
   const types = {
     japanese: ['hiragana','katakana','kanji','english'],

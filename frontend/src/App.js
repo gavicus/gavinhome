@@ -15,6 +15,9 @@ import { TodoList } from './pages/todo/TodoList'
 import { TodoEdit } from './pages/todo/TodoEdit'
 import { TodoCreate } from './pages/todo/TodoCreate'
 import { Illum } from './pages/illum/Illum'
+import { FrankMain } from './pages/franklabs/frankmain'
+import { Friday } from './pages/franklabs/friday'
+import { Dots } from './pages/franklabs/dots'
 
 function App() {
   return (
@@ -37,6 +40,9 @@ function App() {
           <Route path='/todoedit/:id' element={<TodoEdit />} />
           <Route path='/todocreate' element={<TodoCreate />} />
           <Route path='/illum' element={<Illum />} />
+          <Route path='/frankmain' element={<FrankMain />} />
+          <Route path='/friday' element={<Friday />} />
+          <Route path='/dots' element={<Dots />} />
         </Routes>
         </div>
       </div>
