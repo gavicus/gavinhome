@@ -15,6 +15,12 @@ export const SubjectMenu = ({onChange}) => {
     fetchData()
   }, [loggedUser.token])
 
+  useEffect(()=>{
+    if (subjectList && subjectList.length > 0) {
+      setSelectedSubject(subjectList[0])
+    }
+  },[subjectList])
+
   const handleChange = (event) => {
     setSelectedSubject(event.target.value)
     onChange(event.target.value)

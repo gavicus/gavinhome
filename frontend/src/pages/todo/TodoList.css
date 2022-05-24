@@ -18,3 +18,18 @@
   margin-left: 10px;
   line-height: 1.4em;
 }
+
+.createNewLink {
+  margin-bottom: 20px;
+}
+
+.createNewLink a {
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid gray;
+}
+
+.createNewLink a:hover {
+  background-color: #444;
+  color: white;
+}

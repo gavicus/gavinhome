@@ -63,7 +63,7 @@ export const TodoList = () => {
   return (
     <>
       <section className="heading">Todo list</section>
-      <section style={{marginBottom: '20px'}}>
+      <section className="createNewLink">
         <Link to={'/todocreate'}>create a new entry</Link>
       </section>
       <section>
