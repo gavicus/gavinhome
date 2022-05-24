@@ -17,7 +17,7 @@ export const QuestionEdit = () => {
   const { user } = useSelector((state) => state.auth)
   const { questions, isError, message } = useSelector(
     (state) => state.questions
-  );
+  )
 
   useEffect(() => {
     if (isError) {
