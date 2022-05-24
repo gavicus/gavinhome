@@ -61,6 +61,8 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
     }))
   }
 
+  console.log({original})
+
   return (
     <>
       <section className="heading"></section>
@@ -152,9 +154,15 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
             <div className="form-group">
               <label htmlFor='similar'>Similar</label>
               <select name="similar" onChange={onChangeSimilar}>
-                {questionList.map(q=>(
-                  <option key={q._id} value={q._id}>{q.answer}</option>
-                ))}
+                {
+                  questionList
+                  .filter(q=>(
+                    q._id !== original._id && q.type === type
+                  ))
+                  .map(q=>(
+                    <option key={q._id} value={q._id}>{q.answer}</option>
+                  ))
+                }
               </select>
             </div>
           </>
