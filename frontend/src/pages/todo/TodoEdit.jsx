@@ -26,7 +26,6 @@ export const TodoEdit = () => {
   }, [id, loggedUser.token])
 
   const handleSubmit = (data) => {
-    console.log({data})
     todoService.updateTodo(data,loggedUser.token)
     navigate('/todo')
   }
