@@ -17,7 +17,7 @@ const Flashcards = () => {
   const [score, setScore] = useState([])
   const [dbScores, setDbScores] = useState([])
   const [testDone, setTestDone] = useState(false)
-  const [selectedSubject, setSelectedSubject] = useState('')
+  const [selectedSubject, setSelectedSubject] = useState('japanese')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.auth)
@@ -36,6 +36,9 @@ const Flashcards = () => {
   }
 
   const generateDeck = () => {
+
+    console.log({selectedSubject, questionCount})
+
     if (!selectedSubject || !questionCount) {
       setDeck([])
       return
@@ -262,7 +265,9 @@ const Flashcards = () => {
           <SubjectMenu onChange={onChangeSubject} />
         </div>
         <div className="form-group">
-          <button className="btn" onClick={onNewQuiz} style={{width: "100%", margin:"30px 10px"}}>new quiz</button>
+          <button className="btn" onClick={onNewQuiz} style={{width: "100%", margin:"30px 10px"}}>
+            new quiz
+          </button>
         </div>
       </section>
       {testDone ? renderDone() : deck && deck.length > 0 && renderQuiz()}
