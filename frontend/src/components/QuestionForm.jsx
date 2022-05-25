@@ -61,8 +61,6 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
     }))
   }
 
-  console.log({original})
-
   return (
     <>
       <section className="heading"></section>

@@ -162,6 +162,10 @@ h3 {
   justify-content: center;
 }
 
+.btn.alert {
+  background-color: #800;
+}
+
 .btn svg {
   margin-right: 8px;
 }
