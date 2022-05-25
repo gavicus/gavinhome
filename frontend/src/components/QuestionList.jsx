@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import './QuestionList.css'
@@ -23,23 +24,54 @@ const QuestionRow = ({question}) => {
 }
 
 const QuestionList = ({questions}) => {
+  const [sorted, setSorted] = useState([...questions])
+  const [sortField, setSortField] = useState('subject')
+  const [sortDescending, setSortDescending] = useState(false)
+
+  const onClickHeader = (field) => {
+    let descending = sortDescending
+    if (field === sortField) {
+      descending = !descending
+      setSortDescending(descending)
+    } else {
+      descending = false
+      setSortField(field)
+    }
+    setSorted(
+      sorted => sorted.sort((a,b) => {
+        if (sortDescending) {
+          return b[field].localeCompare(a[field])
+        } else {
+          return a[field].localeCompare(b[field])
+        }
+      })
+    )
+  }
+
   return (
     <table className="listTable">
       <thead>
         <tr>
-          {fields.map((field) => <th key={field}>{field}</th>)}
+          {fields.map((field) => (
+            <th
+              style={{
+                textDecoration: field === sortField ? "underline" : "none",
+              }}
+              key={field}
+              onClick={() => onClickHeader(field)}
+            >
+              {field}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        {questions.map((question) => (
-          <QuestionRow
-            question={question}
-            key={question.question}
-          />
+        {sorted.map((question) => (
+          <QuestionRow question={question} key={question.question} />
         ))}
       </tbody>
     </table>
-  )
+  );
 }
 
 export default QuestionList
