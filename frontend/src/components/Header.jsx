@@ -28,6 +28,7 @@ export const Header = () => {
     { name: 'Score Report', link: '/flashcards/scorereport' },
     { name: 'Illum', link: '/illum' },
     { name: 'Frank Labs', link: '/frankmain' },
+    { name: 'Hex', link: '/hex' },
     { name: 'Test', link: '/test' },
   ]
 

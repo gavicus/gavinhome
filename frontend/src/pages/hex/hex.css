@@ -1,0 +1,7 @@
+body {
+  overflow: hidden;
+}
+
+#root .container {
+  padding: 0;
+}

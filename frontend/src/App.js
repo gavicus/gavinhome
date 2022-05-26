@@ -18,6 +18,7 @@ import { Illum } from './pages/illum/Illum'
 import { FrankMain } from './pages/franklabs/frankmain'
 import { Friday } from './pages/franklabs/friday'
 import { Dots } from './pages/franklabs/dots'
+import { Hex } from './pages/hex/hex'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path='/frankmain' element={<FrankMain />} />
           <Route path='/friday' element={<Friday />} />
           <Route path='/dots' element={<Dots />} />
+          <Route path='/hex' element={<Hex />} />
         </Routes>
         </div>
       </div>
