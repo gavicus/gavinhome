@@ -67,10 +67,3 @@ default create (japanese) to kanji
 flashcards score report page
   select user & subject
   question answer right wrong
-
-## deploy to heroku
-heroku login
-git add .
-git commit -m 'commit message'
-git push heroku master
-heroku open
