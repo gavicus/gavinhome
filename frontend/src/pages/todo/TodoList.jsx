@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 
 import todoService from '../../features/todo/todoService'
+import { PageStandard } from '../../components/PageStandard'
 import './TodoList.css'
 
 export const TodoList = () => {
@@ -61,8 +62,7 @@ export const TodoList = () => {
   }
 
   return (
-    <>
-      <section className="heading">Todo list</section>
+    <PageStandard title="todo list">
       <section className="createNewLink">
         <Link to={'/todocreate'}>create a new entry</Link>
       </section>
@@ -71,6 +71,6 @@ export const TodoList = () => {
           <TodoRows />
         </ul>
       </section>
-    </>
+    </PageStandard>
   )
 }
