@@ -2,6 +2,39 @@ import { useState, useEffect } from 'react'
 
 import './QuestionForm.css'
 
+const TypeMenu = ({subject, onChange, startValue}) => {
+  const [selectedType, setSelectedType] = useState(startValue)
+  const types = {
+    japanese: ['hiragana','katakana','kanji','english'],
+    russian: ['russian','english'],
+  }
+
+  const onClick = (event, type) => {
+    event.preventDefault()
+    setSelectedType(type)
+    onChange(type)
+  }
+
+  return (
+    <div className="typeButtonRow">
+      <span>Type: </span>
+      {types[subject].map((type) => (
+        <button
+          key={`type-button-${type}`}
+          className="typeButton"
+          onClick={(event) => onClick(event, type)}
+          style={{
+            backgroundColor: selectedType===type ? '#444' : 'inherit',
+            color: selectedType===type ? 'white' : 'inherit'
+          }}
+        >
+          {type}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   const defaultData = {
     subject: 'japanese',
@@ -34,13 +67,24 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
   const submitHandler = (event) => {
     event.preventDefault()
     onSubmit(formData)
-    setFormData(defaultData)
+    setFormData({
+      ...defaultData,
+      subject,
+      type,
+    })
   }
 
   const onChange = (event) => {
     setFormData((previousState) => ({
       ...previousState,
       [event.target.name]: event.target.value
+    }))
+  }
+
+  const onTypeChange = (type) => {
+    setFormData((previous) => ({
+      ...previous,
+      type
     }))
   }
 
@@ -83,25 +127,13 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
               ))}
             </select>
           </div>
+          
           { subject &&
             <div className="form-group">
-              <label htmlFor="type">Type</label>
-              <select
-                name="type"
-                onChange={onChange}
-                value={type}
-              >
-                { types[subject].map((typename) => (
-                  <option
-                    value={typename}
-                    key={typename}
-                  >
-                    {typename}
-                  </option>
-                ))}
-              </select>
+              <TypeMenu subject={subject} onChange={onTypeChange} startValue={type} />
             </div>
           }
+
           <div className="form-group">
             <label htmlFor="question">Question</label>
             <input
