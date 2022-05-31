@@ -6,6 +6,7 @@ import scoreService from '../../features/score/scoreService'
 import { getQuestions, reset } from '../../features/questions/questionSlice'
 import { createScoreEntries } from '../../utils/quizUtils'
 import { SubjectMenu } from '../../components/SubjectMenu'
+import { PageStandard } from '../../components/PageStandard'
 import './Flashcards.css'
 
 const Flashcards = () => {
@@ -244,7 +245,7 @@ const Flashcards = () => {
   }
 
   return (
-    <>
+    <PageStandard title="flashcards">
       <section className="heading">flashcards</section>
       <section className="optionRow">
         <div className="form-group">
@@ -266,7 +267,7 @@ const Flashcards = () => {
         </div>
       </section>
       {testDone ? renderDone() : deck && deck.length > 0 && renderQuiz()}
-    </>
+    </PageStandard>
   );
 }
 

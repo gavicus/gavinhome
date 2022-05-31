@@ -1,5 +1,6 @@
 .pageStandard .heading {
   position: fixed;
+  top: 50px;
   text-align: center;
   width: 100%;
   background-color: white;
@@ -7,4 +8,8 @@
   font-weight: normal;
   font-size: 2.5em;
   font-variant: small-caps;
+}
+
+.pageStandard .content {
+  margin-top: 100px;
 }
