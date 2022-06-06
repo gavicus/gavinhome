@@ -20,6 +20,7 @@ import { Friday } from './pages/franklabs/friday'
 import { Dots } from './pages/franklabs/dots'
 import { Hex } from './pages/hex/hex'
 import { Character } from './pages/dndchar/Character'
+import { CharacterList } from './pages/dndchar/CharacterList'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path='/hex' element={<Hex />} />
           <Route path='/character' element={<Character />} />
           <Route path='/character/:id' element={<Character />} />
+          <Route path='/characterlist' element={<CharacterList />} />
         </Routes>
         </div>
       </div>

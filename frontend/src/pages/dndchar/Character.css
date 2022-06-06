@@ -1,3 +1,20 @@
+.controls {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 150px);
+  margin-bottom: 20px;
+}
+
+.controls a {
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.controls a:hover {
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+}
 
 .character-form {
   display: grid;

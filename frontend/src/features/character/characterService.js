@@ -18,6 +18,19 @@ const getCharacter = async(characterId, token) => {
   return response.data
 }
 
+const getCharacters = async (options, token) => {
+  if (!options) { return null; }
+  const userId = options.userId || null;
+  if (!userId) { return null; }
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  const response = await axios.get(API_URL + `user/${userId}`, config)
+  return response.data
+}
+
 const updateCharacter = async(data, token) => {
   const config = { headers: { Authorization: `Bearer ${token}` } }
   const response = await axios.put(API_URL + data._id, data, config)
@@ -27,6 +40,7 @@ const updateCharacter = async(data, token) => {
 const characterService = {
   createCharacter,
   getCharacter,
+  getCharacters,
   updateCharacter,
 }
 

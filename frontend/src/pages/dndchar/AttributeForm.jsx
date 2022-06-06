@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import './AttributeForm.css'
+
 export const AttributeForm = ({data, onChange}) => {
   const attributes = ['str','dex','con','int','wis','cha']
   const defaults = Object.fromEntries(attributes.map(a=>[a,8]))
@@ -25,6 +27,10 @@ export const AttributeForm = ({data, onChange}) => {
     const oneMax = 13
     const twoMax = 15
     return parseInt(value-free) + Math.max(0, value-oneMax) + Math.max(0, value-twoMax);
+  }
+
+  const getTotal = () => {
+
   }
 
   const updateForm = (data) => {
@@ -59,6 +65,12 @@ export const AttributeForm = ({data, onChange}) => {
           <td>{costs[a]}</td>
         </tr>
       ))}
+        <tr>
+          <td></td><td></td>
+          <td className='totalField'>{
+            Object.values(costs).reduce((past,current) => past+current, 0)
+          }</td>
+        </tr>
       </tbody>
     </table>
   )

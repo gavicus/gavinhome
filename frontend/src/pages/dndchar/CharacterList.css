@@ -1,0 +1,12 @@
+.characterList td {
+  padding: 5px;
+}
+
+.characterRow {
+  cursor: pointer;
+}
+
+.characterRow:hover {
+  background-color: #444;
+  color: white;
+}

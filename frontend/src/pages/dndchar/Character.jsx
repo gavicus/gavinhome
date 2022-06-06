@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from "react-router-dom"
+import { useNavigate, Link } from 'react-router-dom'
 
 import characterService from '../../features/character/characterService'
 import { PageStandard } from '../../components/PageStandard'
@@ -47,6 +48,12 @@ export const Character = () => {
       setFormData(character.character)
     }
   }, [character])
+
+  useEffect(() => {
+    if (!id) {
+      setFormData(defaultData)
+    }
+  }, [id])
 
   const onOverviewChange = (name, value) => {
     setFormData(previous => ({
@@ -95,10 +102,16 @@ export const Character = () => {
     setShowItemForm(true)
   }
 
+  const isInvalid = () => {
+    return !formData.overview.name
+  }
+
   return (
     <PageStandard title="character">
       <section className="controls">
-        <button onClick={onSubmit}>
+        <Link to={'/characterlist'}>character list</Link>
+        <Link to={'/character'}>new character</Link>
+        <button onClick={onSubmit} disabled={isInvalid()}>
           {id ? 'update' : 'create'}
         </button>
       </section>
