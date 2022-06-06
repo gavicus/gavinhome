@@ -21,7 +21,7 @@ export const Header = () => {
   const userOptions = [
     { name: <><FaSignOutAlt style={{marginRight: '5px'}} />Logout</>, callback: onLogout },
   ]
-    
+  
   const adminOptions = [
     { name: 'Questions', link: '/questions' },
     { name: 'Create Question', link: '/questionnew' },
@@ -29,6 +29,7 @@ export const Header = () => {
     { name: 'Illum', link: '/illum' },
     { name: 'Frank Labs', link: '/frankmain' },
     { name: 'Hex', link: '/hex' },
+    { name: 'Character', link: '/character' },
     { name: 'Test', link: '/test' },
   ]
 

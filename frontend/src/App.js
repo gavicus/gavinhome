@@ -19,6 +19,7 @@ import { FrankMain } from './pages/franklabs/frankmain'
 import { Friday } from './pages/franklabs/friday'
 import { Dots } from './pages/franklabs/dots'
 import { Hex } from './pages/hex/hex'
+import { Character } from './pages/dndchar/Character'
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
           <Route path='/friday' element={<Friday />} />
           <Route path='/dots' element={<Dots />} />
           <Route path='/hex' element={<Hex />} />
+          <Route path='/character' element={<Character />} />
+          <Route path='/character/:id' element={<Character />} />
         </Routes>
         </div>
       </div>

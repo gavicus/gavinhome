@@ -18,6 +18,7 @@ app.use('/api/questions', require('./routes/questionRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/score', require('./routes/scoreRoutes'))
 app.use('/api/todo', require('./routes/todoRoutes'))
+app.use('/api/character', require('./routes/characterRoutes'))
 
 // production env for heroku deployment
 if (process.env.NODE_ENV === 'production') {

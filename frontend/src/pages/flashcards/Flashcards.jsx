@@ -246,7 +246,6 @@ const Flashcards = () => {
 
   return (
     <PageStandard title="flashcards">
-      <section className="heading">flashcards</section>
       <section className="optionRow">
         <div className="form-group">
           <label htmlFor="questionCount">Question Count</label>
