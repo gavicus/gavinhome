@@ -9,6 +9,7 @@ import { AttributeForm } from './AttributeForm'
 import { ItemForm } from './ItemForm'
 import { Input } from './Components'
 import { ItemList } from './ItemList'
+import { NotesForm } from './NotesForm'
 import './Character.css'
 
 export const Character = () => {
@@ -25,6 +26,7 @@ export const Character = () => {
       str: 8, dex: 8, con: 8, int: 8, wis: 8, cha: 8,
     },
     items: [],
+    notes: [],
   }
   const [formData, setFormData] = useState(defaultData)
   const [showItemForm, setShowItemForm] = useState(false)
@@ -69,6 +71,14 @@ export const Character = () => {
     setFormData(previous => ({
       ...previous,
       attributes: data,
+    }))
+  }
+
+  const onNotesChange = (data) => {
+    console.log({onNotesChange:data})
+    setFormData(previous => ({
+      ...previous,
+      notes: data,
     }))
   }
 
@@ -127,6 +137,10 @@ export const Character = () => {
 
         <section className="form-section attributes">
           <AttributeForm data={formData.attributes} onChange={onAttributeChange} />
+        </section>
+
+        <section className="form-section notes">
+          <NotesForm items={formData.notes} onChange={onNotesChange} />
         </section>
 
         <section className="form-section items">
