@@ -9,13 +9,20 @@ export const AttributeForm = ({data, onChange}) => {
   const [costs, setCosts] = useState(
     Object.fromEntries(attributes.map(a=>[a,0]))
   )
+  const [mods, setMods] = useState(
+    Object.fromEntries(attributes.map(a=>[a,-1]))
+  )
 
   useEffect(() => {
     const newCosts = {}
+    const newMods = {}
     for (const att of attributes) {
-      newCosts[att] = getCost(formValues[att])
+      const attValue = formValues[att]
+      newCosts[att] = getCost(attValue)
+      newMods[att] = getMod(attValue)
     }
     setCosts(newCosts)
+    setMods(newMods)
   }, [formValues])
 
   useEffect(() => {
@@ -26,11 +33,14 @@ export const AttributeForm = ({data, onChange}) => {
     const free = 8
     const oneMax = 13
     const twoMax = 15
-    return parseInt(value-free) + Math.max(0, value-oneMax) + Math.max(0, value-twoMax);
+    const attribute = parseInt(value)
+    return attribute - free + Math.max(0, attribute - oneMax) + Math.max(0, attribute - twoMax);
   }
 
-  const getTotal = () => {
-
+  const getMod = (value) => {
+    const attribute = parseInt(value)
+    const aboveTen = attribute - 10
+    return Math.floor(aboveTen / 2)
   }
 
   const updateForm = (data) => {
@@ -46,6 +56,11 @@ export const AttributeForm = ({data, onChange}) => {
     onChange(newValues)
   }
 
+  const showMod = (mod) => {
+    const operator = mod > 0 ? '+' : ''
+    return `(${operator}${mod})`
+  }
+
   return (
     <table>
       <thead>
@@ -53,6 +68,7 @@ export const AttributeForm = ({data, onChange}) => {
           <th>attr</th>
           <th>base</th>
           <th>cost</th>
+          <th>mod</th>
         </tr>
       </thead>
       <tbody>
@@ -63,6 +79,7 @@ export const AttributeForm = ({data, onChange}) => {
             <input onChange={handleChange} name={a} value={data[a]} />
           </td>
           <td>{costs[a]}</td>
+          <td>{showMod(mods[a])}</td>
         </tr>
       ))}
         <tr>

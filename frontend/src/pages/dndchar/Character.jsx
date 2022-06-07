@@ -10,7 +10,12 @@ import { ItemForm } from './ItemForm'
 import { Input } from './Components'
 import { ItemList } from './ItemList'
 import { NotesForm } from './NotesForm'
+import { SkillList } from './SkillList'
 import './Character.css'
+
+/*
+give each item a note and/or hyperlink
+*/
 
 export const Character = () => {
   const { id } = useParams()
@@ -97,6 +102,9 @@ export const Character = () => {
   }
 
   const onSaveItem = (data) => {
+
+    console.log({onSaveItem:data})
+    
     setShowItemForm(false)
     if (!data) return
     const newData = formData
@@ -137,6 +145,10 @@ export const Character = () => {
 
         <section className="form-section attributes">
           <AttributeForm data={formData.attributes} onChange={onAttributeChange} />
+        </section>
+
+        <section className="form-section skills">
+          <SkillList items={formData.items} level={formData.overview.level} />
         </section>
 
         <section className="form-section notes">

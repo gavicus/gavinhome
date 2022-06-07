@@ -52,9 +52,9 @@ export const NotesForm = ({items, onChange}) => {
   const NoteDisplay = ({item, index}) => {
     return (
       <div className="noteDisplay">
-        <button class="removeButton" onClick={() => removeNote(index)}>x</button>
+        <button className="removeButton" onClick={() => removeNote(index)}>x</button>
         <span>{item}</span>
-        <button class="editButton" onClick={() => editNote(index)}>edit</button>
+        <button className="editButton" onClick={() => editNote(index)}>edit</button>
       </div>
     )
   }

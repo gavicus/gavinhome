@@ -38,6 +38,8 @@ export const ItemForm = ({onSave}) => {
   const [formInvalid, setFormInvalid] = useState(true)
 
   const validate = () => {
+    console.log({validate:formData})
+
     if (!formData.type) return setFormInvalid(true)
     if (!formData.title) return setFormInvalid(true)
     if (formData.level === '' || isNaN(formData.level)) return setFormInvalid(true)
@@ -59,12 +61,21 @@ export const ItemForm = ({onSave}) => {
   }
 
   useEffect(() => {
+
+    console.log({useEffect:formData})
+
     validate()
   }, [formData])
 
   const onEffectChange = (data) => {
+
+    console.log({onEffectChange:data})
+
     const newData = { ...formData }
-    newData.effects[data.fieldIndex][data.fieldName] = data.value
+    newData.effects[parseInt(data.fieldIndex)][data.fieldName] = data.value
+
+    console.log({onEffectChange:newData})
+    
     setFormData(newData)
   }
 
@@ -75,8 +86,11 @@ export const ItemForm = ({onSave}) => {
   }
 
   const onSubmitItem = () => {
+
+    console.log({onSubmitItem:formData})
+
     const submitData = formData
-    submitData.effects = submitData.effects.filter(d => !!d.item)
+    // submitData.effects = submitData.effects.filter(d => !!d.item)
     onSave(submitData)
   }
 
