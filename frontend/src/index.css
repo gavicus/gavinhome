@@ -297,3 +297,16 @@ section.optionRow .form-group {
   background: #777;
   cursor: pointer;
 }
+
+/**/
+
+.roundButton {
+  padding: 1px 5px;
+  border-radius: 12px;
+  border: 1px solid black;
+}
+
+td, th {
+  text-align: left;
+  padding: 0 5px;
+}

@@ -6,9 +6,12 @@ import { useNavigate, Link } from 'react-router-dom'
 import characterService from '../../features/character/characterService'
 import { PageStandard } from '../../components/PageStandard'
 import { AttributeForm } from './AttributeForm'
-import { ItemForm } from './ItemForm'
 import { Input } from './Components'
+
+import { ItemForm } from './ItemForm'
 import { ItemList } from './ItemList'
+import { ItemBox } from './ItemBox'
+
 import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
 import './Character.css'
@@ -80,7 +83,6 @@ export const Character = () => {
   }
 
   const onNotesChange = (data) => {
-    console.log({onNotesChange:data})
     setFormData(previous => ({
       ...previous,
       notes: data,
@@ -88,7 +90,6 @@ export const Character = () => {
   }
 
   const onSubmit = () => {
-    console.log({formData})
     const data = {
       userId: loggedUser._id,
       character: formData,
@@ -102,9 +103,6 @@ export const Character = () => {
   }
 
   const onSaveItem = (data) => {
-
-    console.log({onSaveItem:data})
-    
     setShowItemForm(false)
     if (!data) return
     const newData = formData
@@ -114,6 +112,14 @@ export const Character = () => {
       newData.items.push(data)
       setFormData(newData)
     }
+  }
+
+  const onChangeItems = (data) => {
+    console.log({onChangeItems: data})
+    setFormData(previous => ({
+      ...previous,
+      items: data,
+    }))
   }
 
   const toggleItemForm = (data) => {
@@ -151,8 +157,8 @@ export const Character = () => {
           <SkillList items={formData.items} level={formData.overview.level} />
         </section>
 
-        <section className="form-section notes">
-          <NotesForm items={formData.notes} onChange={onNotesChange} />
+        <section className="form-section items">
+          <ItemBox items={formData.items} onChange={onChangeItems} />
         </section>
 
         <section className="form-section items">
@@ -160,8 +166,12 @@ export const Character = () => {
             showItemForm ?
             <ItemForm onSave={onSaveItem} />
             :
-            <ItemList items={formData.items} onEdit={toggleItemForm} />
+            <ItemList items={formData.items} onNew={toggleItemForm} />
           }
+        </section>
+
+        <section className="form-section notes">
+          <NotesForm items={formData.notes} onChange={onNotesChange} />
         </section>
 
       </section>

@@ -25,21 +25,24 @@ const EffectRow = ({index, category, item, adder, onChange}) => {
   )
 }
 
-export const ItemForm = ({onSave}) => {
+export const ItemForm = ({onSave, item}) => {
   const types = ['race','feat','skill','spell','power']
   const defaults = {
     level: 0,
     title: '',
     type: '',
     effects: [{category:'', item:'', adder:''}],
-    // ex: {'attribute', 'str', 1}, {'skill', 'climb', 2}
   }
   const [formData, setFormData] = useState(defaults)
   const [formInvalid, setFormInvalid] = useState(true)
 
-  const validate = () => {
-    console.log({validate:formData})
+  useEffect (() => {
+    if (item) {
+      setFormData(item)
+    }
+  }, [item])
 
+  const validate = () => {
     if (!formData.type) return setFormInvalid(true)
     if (!formData.title) return setFormInvalid(true)
     if (formData.level === '' || isNaN(formData.level)) return setFormInvalid(true)
@@ -61,21 +64,12 @@ export const ItemForm = ({onSave}) => {
   }
 
   useEffect(() => {
-
-    console.log({useEffect:formData})
-
     validate()
   }, [formData])
 
   const onEffectChange = (data) => {
-
-    console.log({onEffectChange:data})
-
     const newData = { ...formData }
     newData.effects[parseInt(data.fieldIndex)][data.fieldName] = data.value
-
-    console.log({onEffectChange:newData})
-    
     setFormData(newData)
   }
 
@@ -86,12 +80,12 @@ export const ItemForm = ({onSave}) => {
   }
 
   const onSubmitItem = () => {
-
-    console.log({onSubmitItem:formData})
-
     const submitData = formData
-    // submitData.effects = submitData.effects.filter(d => !!d.item)
     onSave(submitData)
+  }
+
+  const onDeleteItem = () => {
+    console.log({onDeleteItem: item})
   }
 
   const onCancelItem = () => {
@@ -116,6 +110,10 @@ export const ItemForm = ({onSave}) => {
       </section>
       <section className="submitItem">
         <button onClick={onSubmitItem} disabled={formInvalid}>save item</button>
+        {
+          item &&
+          <button onClick={onDeleteItem}>delete item</button>
+        }
         <button onClick={onCancelItem}>cancel</button>
       </section>
       <section className="itemBasics">
