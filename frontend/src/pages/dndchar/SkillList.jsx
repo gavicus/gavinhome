@@ -1,4 +1,4 @@
-
+import './SkillList.css'
 
 export const SkillList = ({items, level}) => {
 

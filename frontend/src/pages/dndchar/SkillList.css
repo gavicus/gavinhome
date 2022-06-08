@@ -1,0 +1,3 @@
+.form-section.skills {
+  grid-template-rows: repeat(auto-fill, 30px);
+}
