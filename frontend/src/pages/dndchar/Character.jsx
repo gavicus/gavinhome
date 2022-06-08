@@ -8,10 +8,8 @@ import { PageStandard } from '../../components/PageStandard'
 import { AttributeForm } from './AttributeForm'
 import { Input } from './Components'
 
-import { ItemForm } from './ItemForm'
-import { ItemList } from './ItemList'
 import { ItemBox } from './ItemBox'
-
+import { SkillForm } from './SkillForm'
 import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
 import './Character.css'
@@ -130,27 +128,59 @@ export const Character = () => {
     return !formData.overview.name
   }
 
+  const handleSkillFormSubmit = (data) => {
+    console.log({handleSkillFormSubmit:data})
+    if (data) {
+      // save
+    } else {
+      // handle cancel
+    }
+    // close the form
+  }
+
   return (
     <PageStandard title="character">
       <section className="controls">
-        <Link to={'/characterlist'}>character list</Link>
-        <Link to={'/character'}>new character</Link>
+        <Link to={"/characterlist"}>character list</Link>
+        <Link to={"/character"}>new character</Link>
         <button onClick={onSubmit} disabled={isInvalid()}>
-          {id ? 'update' : 'create'}
+          {id ? "update" : "create"}
         </button>
       </section>
 
       <section className="character-form">
-
         <section className="form-section overview">
-          <Input name="name" label="name" value={formData.overview.name} onChange={onOverviewChange} />
-          <Input name="race" label="race" value={formData.overview.race} onChange={onOverviewChange} />
-          <Input name="class" label="class" value={formData.overview.class} onChange={onOverviewChange} />
-          <Input name="level" label="level" value={formData.overview.level} onChange={onOverviewChange} />
+          <Input
+            name="name"
+            label="name"
+            value={formData.overview.name}
+            onChange={onOverviewChange}
+          />
+          <Input
+            name="race"
+            label="race"
+            value={formData.overview.race}
+            onChange={onOverviewChange}
+          />
+          <Input
+            name="class"
+            label="class"
+            value={formData.overview.class}
+            onChange={onOverviewChange}
+          />
+          <Input
+            name="level"
+            label="level"
+            value={formData.overview.level}
+            onChange={onOverviewChange}
+          />
         </section>
 
         <section className="form-section attributes">
-          <AttributeForm data={formData.attributes} onChange={onAttributeChange} />
+          <AttributeForm
+            data={formData.attributes}
+            onChange={onAttributeChange}
+          />
         </section>
 
         <section className="form-section skills">
@@ -161,20 +191,17 @@ export const Character = () => {
           <ItemBox items={formData.items} onChange={onChangeItems} />
         </section>
 
-        <section className="form-section items">
-          {
-            showItemForm ?
-            <ItemForm onSave={onSaveItem} />
-            :
-            <ItemList items={formData.items} onNew={toggleItemForm} />
-          }
-        </section>
+        {console.log({items:formData.items})}
+
+        <SkillForm
+          skills={formData.items.filter((item) => item.type === "skill")}
+          onSubmit={handleSkillFormSubmit}
+        />
 
         <section className="form-section notes">
           <NotesForm items={formData.notes} onChange={onNotesChange} />
         </section>
-
       </section>
     </PageStandard>
-  )
+  );
 }

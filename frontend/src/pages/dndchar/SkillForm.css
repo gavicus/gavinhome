@@ -1,0 +1,18 @@
+.form-section.skill {
+  grid-template-rows: repeat(auto-fill, 30px);
+}
+
+.form-section.skill section {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 2fr;
+}
+
+
+.form-section.skill section.submit {
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-section.skill section label {
+  text-align: right;
+}

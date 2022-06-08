@@ -5,8 +5,6 @@ export const ItemList = ({items, onNew, onEdit}) => {
     onEdit(index)
   }
 
-  console.log({items})
-
   const ListEntry = ({item}) => {
     return (
       <tr onClick={() => handleClickEntry(item.id)}>
