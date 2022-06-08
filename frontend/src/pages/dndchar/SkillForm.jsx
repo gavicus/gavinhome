@@ -8,8 +8,6 @@ export const SkillForm = ({skills, onSubmit}) => {
   const [stat, setStat] = useState('')
   const [newSkillName, setNewSkillName] = useState('')
 
-  console.log({skills})
-
   const onChangeSkillMenu = (event) => {
     setSkillName(event.target.value)
   }
@@ -65,7 +63,7 @@ export const SkillForm = ({skills, onSubmit}) => {
         <select onChange={onChangeSkillMenu} value={skillName}>
           <option value={''}>(new skill)</option>
           {skills.map(skill => (
-            <option key={`option-${skill.title}`} value={skill.title}>
+            <option key={`option-${skill.id}`} value={skill.title}>
               {skill.title}
             </option>
           ))}

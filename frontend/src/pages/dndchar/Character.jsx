@@ -12,6 +12,7 @@ import { ItemBox } from './ItemBox'
 import { SkillForm } from './SkillForm'
 import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
+import { getNextItemId } from './helpers'
 import './Character.css'
 
 /*
@@ -100,18 +101,6 @@ export const Character = () => {
     }
   }
 
-  const onSaveItem = (data) => {
-    setShowItemForm(false)
-    if (!data) return
-    const newData = formData
-    if ('id' in Object.keys(data)) {
-      console.log('update item to be implemented')
-    } else {
-      newData.items.push(data)
-      setFormData(newData)
-    }
-  }
-
   const onChangeItems = (data) => {
     console.log({onChangeItems: data})
     setFormData(previous => ({
@@ -120,18 +109,40 @@ export const Character = () => {
     }))
   }
 
-  const toggleItemForm = (data) => {
-    setShowItemForm(true)
-  }
-
   const isInvalid = () => {
     return !formData.overview.name
   }
 
   const handleSkillFormSubmit = (data) => {
+    console.log({formData})
     console.log({handleSkillFormSubmit:data})
+
     if (data) {
-      // save
+
+      const saveData = {
+        id: getNextItemId(formData.items),
+        level: parseInt(formData.overview.level),
+        type: 'skill',
+        title: data.title,
+        effects: [
+          { item: 'rank', adder: data.adder }
+        ]
+      }
+  
+      if (data.isNew) {
+        saveData.effects.push({ item: 'stat', adder: data.stat})
+      } else {}
+
+      console.log({saveData,formData})
+
+      setFormData(previous => ({
+        ...previous,
+        items: [
+          ...(previous.items),
+          saveData,
+        ],
+      }))
+
     } else {
       // handle cancel
     }
@@ -183,15 +194,13 @@ export const Character = () => {
           />
         </section>
 
-        <section className="form-section skills">
-          <SkillList items={formData.items} level={formData.overview.level} />
-        </section>
+        <SkillList items={formData.items} level={formData.overview.level} />
 
         <section className="form-section items">
           <ItemBox items={formData.items} onChange={onChangeItems} />
         </section>
 
-        {console.log({items:formData.items})}
+        { console.log({formData}) }
 
         <SkillForm
           skills={formData.items.filter((item) => item.type === "skill")}

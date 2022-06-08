@@ -2,24 +2,12 @@ import { useState } from 'react'
 
 import { ItemForm } from './ItemForm'
 import { ItemList } from './ItemList'
+import { getNextItemId } from './helpers'
 
 export const ItemBox = ({items, onChange}) => {
   const [showForm, setShowForm] = useState(false)
   const [editing, setEditing] = useState(false)
   const [editId, setEditId] = useState(0)
-
-  const getNextId = () => {
-    let id = 0
-    for (const item of items) {
-      if (item.hasOwnProperty('id')) {
-        const itemId = parseInt(item.id)
-        if (itemId >= id) {
-          id = itemId + 1
-        }
-      }
-    }
-    return id
-  }
 
   const onSaveItem = (data) => {
     console.log({onSaveItem: data})
@@ -28,7 +16,7 @@ export const ItemBox = ({items, onChange}) => {
         const others = items.filter(item => item.id !== data.id)
         onChange([ ...others, data ])
       } else {
-        data.id = getNextId()
+        data.id = getNextItemId(items)
         onChange([ ...items, data ])
       }
     }
