@@ -30,6 +30,9 @@ export const LevelBox = ({level, items, onChange}) => {
     <section className="form-section levelling">
       level {level} changes
       <section>
+        <button onClick={handleAddSkillButton}>add a skill</button>
+      </section>
+      <section>
         {showSkillForm ? (
           <SkillForm
             items={items}
@@ -38,7 +41,6 @@ export const LevelBox = ({level, items, onChange}) => {
         />
         ) : (
           <>
-            <button onClick={handleAddSkillButton}>add a skill</button>
             <SkillList level={level} items={formItems} />
           </>
         )}
