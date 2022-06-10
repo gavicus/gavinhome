@@ -1,10 +1,11 @@
+import { useState, useEffect } from 'react'
+
 import './SkillList.css'
 
 export const SkillList = ({items, level}) => {
+  const [skills, setSkills] = useState([])
 
-  console.log({items})
-
-  const getSkills = () => {
+  useEffect(() => {
     if (!items) { return [] }
 
     const filtered = items
@@ -14,7 +15,8 @@ export const SkillList = ({items, level}) => {
     for (let item of filtered) {
       names.add(item.title)
     }
-    const skills = []
+
+    const mergedSkills = []
     for (let name of names) {
       const myItems = filtered.filter(item => item.title === name)
       let rank = 0
@@ -25,19 +27,12 @@ export const SkillList = ({items, level}) => {
         const statEffect = item.effects.find(e => e.item === 'stat')
         if (statEffect) { stat = statEffect.adder }
       }
-      skills.push({title:name,rank,stat})
+      mergedSkills.push({title:name,rank,stat})
     }
 
-    return skills.sort((a,b) => a.title.localeCompare(b.title))
-  }
+    setSkills(mergedSkills.sort((a,b) => a.title.localeCompare(b.title)))
+  }, [items, level])
 
-  const getSkillRank = (skill) => {
-    if (skill.effects && skill.effects.length > 0) {
-      return skill.effects[0].adder
-    }
-    return 0
-  }
-  
   const SkillEntry = ({skill}) => {
     return (
       <>
@@ -55,7 +50,7 @@ export const SkillList = ({items, level}) => {
       <table>
         <tbody>
           {
-            getSkills().map(skill => (
+            skills.map(skill => (
               <tr key={`skill-${skill.title}`}>
                 {<SkillEntry skill={skill} />}
               </tr>

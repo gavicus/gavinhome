@@ -13,6 +13,7 @@ import { SkillForm } from './SkillForm'
 import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
 import { getNextItemId } from './helpers'
+import { LevelBox } from './LevelBox'
 import './Character.css'
 
 /*
@@ -116,37 +117,14 @@ export const Character = () => {
   const handleSkillFormSubmit = (data) => {
     console.log({formData})
     console.log({handleSkillFormSubmit:data})
+  }
 
+  const handleLevelBoxChange = (data) => {
     if (data) {
-
-      const saveData = {
-        id: getNextItemId(formData.items),
-        level: parseInt(formData.overview.level),
-        type: 'skill',
-        title: data.title,
-        effects: [
-          { item: 'rank', adder: data.adder }
-        ]
-      }
-  
-      if (data.isNew) {
-        saveData.effects.push({ item: 'stat', adder: data.stat})
-      } else {}
-
-      console.log({saveData,formData})
-
-      setFormData(previous => ({
-        ...previous,
-        items: [
-          ...(previous.items),
-          saveData,
-        ],
-      }))
-
-    } else {
-      // handle cancel
+      const newData = formData
+      newData.items.push(data)
+      setFormData(newData)
     }
-    // close the form
   }
 
   return (
@@ -200,11 +178,16 @@ export const Character = () => {
           <ItemBox items={formData.items} onChange={onChangeItems} />
         </section>
 
-        { console.log({formData}) }
+        <LevelBox
+          level={formData.overview.level}
+          items={formData.items}
+          onChange={handleLevelBoxChange}
+        />
 
         <SkillForm
           skills={formData.items.filter((item) => item.type === "skill")}
           onSubmit={handleSkillFormSubmit}
+          level={formData.overview.level}
         />
 
         <section className="form-section notes">

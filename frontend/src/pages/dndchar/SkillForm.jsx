@@ -1,12 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
+import { getNextItemId } from './helpers'
 import './SkillForm.css'
 
-export const SkillForm = ({skills, onSubmit}) => {
+export const SkillForm = ({items, level, onSubmit}) => {
   const [skillName, setSkillName] = useState('')
   const [rank, setRank] = useState('')
   const [stat, setStat] = useState('')
   const [newSkillName, setNewSkillName] = useState('')
+  const [skillItems, setSkillItems] = useState([])
+
+  useEffect(() => {
+    if (items) {
+      setSkillItems(items.filter((item) => item.type === "skill"))
+    }
+  }, [items])
 
   const onChangeSkillMenu = (event) => {
     setSkillName(event.target.value)
@@ -25,22 +33,20 @@ export const SkillForm = ({skills, onSubmit}) => {
   }
 
   const handleSubmit = () => {
-    let data
-    if (skillName) {
-      data = {
-        isNew: false,
-        title: skillName,
-        adder: rank,
-      }
-    } else {
-      data = {
-        isNew: true,
-        title: newSkillName,
-        adder: rank,
-        stat: stat,
-      }
+    const saveData = {
+      id: getNextItemId(items),
+      level: parseInt(level),
+      type: 'skill',
+      title: skillName ? skillName : newSkillName,
+      isNew: !skillName,
+      effects: [
+        { item: 'rank', adder: rank }
+      ]
     }
-    onSubmit(data)
+    if (stat) {
+      saveData.effects.push({ item: 'stat', adder: stat})
+    } else {}
+    onSubmit(saveData)
   }
 
   const handleCancel = () => {
@@ -62,7 +68,7 @@ export const SkillForm = ({skills, onSubmit}) => {
         <label>skill</label>
         <select onChange={onChangeSkillMenu} value={skillName}>
           <option value={''}>(new skill)</option>
-          {skills.map(skill => (
+          {skillItems.map(skill => (
             <option key={`option-${skill.id}`} value={skill.title}>
               {skill.title}
             </option>
