@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from "react-router-dom"
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import characterService from '../../features/character/characterService'
 import { PageStandard } from '../../components/PageStandard'
@@ -12,7 +12,6 @@ import { ItemBox } from './ItemBox'
 import { SkillForm } from './SkillForm'
 import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
-import { getNextItemId } from './helpers'
 import { LevelBox } from './LevelBox'
 import './Character.css'
 
@@ -37,8 +36,8 @@ export const Character = () => {
     notes: [],
   }
   const [formData, setFormData] = useState(defaultData)
-  const [showItemForm, setShowItemForm] = useState(false)
   const [character, setCharacter] = useState(null)
+  const [changed, setChanged] = useState(false)
 
   useEffect(() => {
     const getTheCharacter = async() => {
@@ -65,17 +64,22 @@ export const Character = () => {
     }
   }, [id])
 
+  useEffect(() => {
+    console.log({formData})
+  }, [formData])
+
   const onOverviewChange = (name, value) => {
-    setFormData(previous => ({
-      ...previous,
-      overview: {
-        ...previous.overview,
-        [name]: value
-      }
-    }))
+
+    console.log({name,value})
+
+    setChanged(true)
+    const newData = {...formData}
+    newData.overview[name] = value
+    setFormData(newData)
   }
 
   const onAttributeChange = (data) => {
+    setChanged(true)
     setFormData(previous => ({
       ...previous,
       attributes: data,
@@ -83,10 +87,81 @@ export const Character = () => {
   }
 
   const onNotesChange = (data) => {
+    setChanged(true)
     setFormData(previous => ({
       ...previous,
       notes: data,
     }))
+  }
+
+  const onChangeItems = (data) => {
+    setChanged(true)
+    console.log({onChangeItems: data})
+    setFormData(previous => ({
+      ...previous,
+      items: data,
+    }))
+  }
+
+  const onDeleteItem = (id) => {
+    setChanged(true)
+    const newData = formData
+    newData.items = newData.items.filter(item => item.id !== id)
+    setFormData(newData)
+  }
+
+  const isInvalid = () => {
+    return !formData.overview.name
+  }
+
+  const handleSkillFormSubmit = (data) => {
+    // setChanged(true)
+    console.log({formData})
+    console.log({handleSkillFormSubmit:data})
+  }
+
+  const handleLevelBoxChange = (data) => {
+    if (data) {
+      setChanged(true)
+      const newData = formData
+      newData.items.push(data)
+      setFormData(newData)
+    }
+  }
+
+  const Overview = () => {
+    return (
+      <section className="form-section overview">
+          <Input
+            key="name-input"
+            name="name"
+            label="name"
+            value={formData.overview.name}
+            onChange={onOverviewChange}
+          />
+          <Input
+            key="race-input"
+            name="race"
+            label="race"
+            value={formData.overview.race}
+            onChange={onOverviewChange}
+          />
+          <Input
+            key="class-input"
+            name="class"
+            label="class"
+            value={formData.overview.class}
+            onChange={onOverviewChange}
+          />
+          <Input
+            key="level-input"
+            name="level"
+            label="level"
+            value={formData.overview.level}
+            onChange={onOverviewChange}
+          />
+        </section>
+    )
   }
 
   const onSubmit = () => {
@@ -100,68 +175,7 @@ export const Character = () => {
     } else {
       characterService.createCharacter(data, loggedUser.token)
     }
-  }
-
-  const onChangeItems = (data) => {
-    console.log({onChangeItems: data})
-    setFormData(previous => ({
-      ...previous,
-      items: data,
-    }))
-  }
-
-  const onDeleteItem = (id) => {
-    const newData = formData
-    newData.items = newData.items.filter(item => item.id !== id)
-    setFormData(newData)
-  }
-
-  const isInvalid = () => {
-    return !formData.overview.name
-  }
-
-  const handleSkillFormSubmit = (data) => {
-    console.log({formData})
-    console.log({handleSkillFormSubmit:data})
-  }
-
-  const handleLevelBoxChange = (data) => {
-    if (data) {
-      const newData = formData
-      newData.items.push(data)
-      setFormData(newData)
-    }
-  }
-
-  const Overview = () => {
-    return (
-      <section className="form-section overview">
-          <Input
-            name="name"
-            label="name"
-            value={formData.overview.name}
-            onChange={onOverviewChange}
-          />
-          <Input
-            name="race"
-            label="race"
-            value={formData.overview.race}
-            onChange={onOverviewChange}
-          />
-          <Input
-            name="class"
-            label="class"
-            value={formData.overview.class}
-            onChange={onOverviewChange}
-          />
-          <Input
-            name="level"
-            label="level"
-            value={formData.overview.level}
-            onChange={onOverviewChange}
-          />
-        </section>
-    )
+    setChanged(false)
   }
 
   return (
@@ -169,13 +183,22 @@ export const Character = () => {
       <section className="controls">
         <Link to={"/characterlist"}>character list</Link>
         <Link to={"/character"}>new character</Link>
-        <button onClick={onSubmit} disabled={isInvalid()}>
-          {id ? "update" : "create"}
+        <button
+          onClick={onSubmit}
+          disabled={!changed || isInvalid()}
+          style={{
+            fontSize: "1.2em",
+            backgroundColor: changed ? "#6c6" : "inherit",
+            color: changed ? "white": "lightgray"
+          }}
+        >
+          {id ? "save changes" : "create"}
         </button>
       </section>
 
       <section className="character-form">
-        <Overview />
+
+        {Overview()}
 
         <AttributeForm
           data={formData.attributes}
