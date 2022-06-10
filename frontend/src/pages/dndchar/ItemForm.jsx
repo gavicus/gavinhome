@@ -25,7 +25,7 @@ const EffectRow = ({index, category, item, adder, onChange}) => {
   )
 }
 
-export const ItemForm = ({onSave, item}) => {
+export const ItemForm = ({onSave, item, onDelete}) => {
   const types = ['race','feat','skill','spell','power']
   const defaults = {
     level: 0,
@@ -85,7 +85,7 @@ export const ItemForm = ({onSave, item}) => {
   }
 
   const onDeleteItem = () => {
-    console.log({onDeleteItem: item})
+    onDelete(item.id)
   }
 
   const onCancelItem = () => {

@@ -29,7 +29,7 @@ export const Header = () => {
     { name: 'Illum', link: '/illum' },
     { name: 'Frank Labs', link: '/frankmain' },
     { name: 'Hex', link: '/hex' },
-    { name: 'Character', link: '/character' },
+    { name: 'Characters', link: '/characterlist' },
     { name: 'Test', link: '/test' },
   ]
 

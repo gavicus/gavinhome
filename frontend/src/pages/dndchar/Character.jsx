@@ -110,6 +110,12 @@ export const Character = () => {
     }))
   }
 
+  const onDeleteItem = (id) => {
+    const newData = formData
+    newData.items = newData.items.filter(item => item.id !== id)
+    setFormData(newData)
+  }
+
   const isInvalid = () => {
     return !formData.overview.name
   }
@@ -127,18 +133,9 @@ export const Character = () => {
     }
   }
 
-  return (
-    <PageStandard title="character">
-      <section className="controls">
-        <Link to={"/characterlist"}>character list</Link>
-        <Link to={"/character"}>new character</Link>
-        <button onClick={onSubmit} disabled={isInvalid()}>
-          {id ? "update" : "create"}
-        </button>
-      </section>
-
-      <section className="character-form">
-        <section className="form-section overview">
+  const Overview = () => {
+    return (
+      <section className="form-section overview">
           <Input
             name="name"
             label="name"
@@ -164,19 +161,26 @@ export const Character = () => {
             onChange={onOverviewChange}
           />
         </section>
+    )
+  }
 
-        <section className="form-section attributes">
-          <AttributeForm
-            data={formData.attributes}
-            onChange={onAttributeChange}
-          />
-        </section>
+  return (
+    <PageStandard title="character">
+      <section className="controls">
+        <Link to={"/characterlist"}>character list</Link>
+        <Link to={"/character"}>new character</Link>
+        <button onClick={onSubmit} disabled={isInvalid()}>
+          {id ? "update" : "create"}
+        </button>
+      </section>
 
-        <SkillList items={formData.items} level={formData.overview.level} />
+      <section className="character-form">
+        <Overview />
 
-        <section className="form-section items">
-          <ItemBox items={formData.items} onChange={onChangeItems} />
-        </section>
+        <AttributeForm
+          data={formData.attributes}
+          onChange={onAttributeChange}
+        />
 
         <LevelBox
           level={formData.overview.level}
@@ -184,15 +188,21 @@ export const Character = () => {
           onChange={handleLevelBoxChange}
         />
 
+        <ItemBox
+          items={formData.items}
+          onChange={onChangeItems}
+          onDelete={onDeleteItem}
+        />
+
+        <SkillList items={formData.items} level={formData.overview.level} />
+
         <SkillForm
           skills={formData.items.filter((item) => item.type === "skill")}
           onSubmit={handleSkillFormSubmit}
           level={formData.overview.level}
         />
 
-        <section className="form-section notes">
-          <NotesForm items={formData.notes} onChange={onNotesChange} />
-        </section>
+        <NotesForm items={formData.notes} onChange={onNotesChange} />
       </section>
     </PageStandard>
   );

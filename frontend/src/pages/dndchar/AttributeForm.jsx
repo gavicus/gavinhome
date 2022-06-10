@@ -62,33 +62,35 @@ export const AttributeForm = ({data, onChange}) => {
   }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>attr</th>
-          <th>base</th>
-          <th>cost</th>
-          <th>mod</th>
-        </tr>
-      </thead>
-      <tbody>
-      {attributes.map(a => (
-        <tr key={`attribute-row-${a}`}>
-          <td>{a}</td>
-          <td>
-            <input onChange={handleChange} name={a} value={data[a]} />
-          </td>
-          <td>{costs[a]}</td>
-          <td>{showMod(mods[a])}</td>
-        </tr>
-      ))}
-        <tr>
-          <td></td><td></td>
-          <td className='totalField'>{
-            Object.values(costs).reduce((past,current) => past+current, 0)
-          }</td>
-        </tr>
-      </tbody>
-    </table>
+    <section className="form-section attributes">
+      <table>
+        <thead>
+          <tr>
+            <th>attr</th>
+            <th>base</th>
+            <th>cost</th>
+            <th>mod</th>
+          </tr>
+        </thead>
+        <tbody>
+        {attributes.map(a => (
+          <tr key={`attribute-row-${a}`}>
+            <td>{a}</td>
+            <td>
+              <input onChange={handleChange} name={a} value={data[a]} />
+            </td>
+            <td>{costs[a]}</td>
+            <td>{showMod(mods[a])}</td>
+          </tr>
+        ))}
+          <tr>
+            <td></td><td></td>
+            <td className='totalField'>{
+              Object.values(costs).reduce((past,current) => past+current, 0)
+            }</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   )
 }

@@ -60,7 +60,7 @@ export const NotesForm = ({items, onChange}) => {
   }
 
   return (
-    <>
+    <section className="form-section notes">
       <p>notes</p>
       {items && items.map((item, index) => <NoteDisplay key={`note-${index}`} item={item} index={index} />)}
       <section className="entryField">
@@ -68,6 +68,6 @@ export const NotesForm = ({items, onChange}) => {
         <button onClick={handleSubmit}>submit</button>
         <button onClick={handleCancel}>cancel</button>
       </section>
-    </>
+    </section>
   )
 }

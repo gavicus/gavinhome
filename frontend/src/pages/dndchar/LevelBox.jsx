@@ -28,7 +28,7 @@ export const LevelBox = ({level, items, onChange}) => {
 
   return (
     <section className="form-section levelling">
-      levelling to level {level}
+      level {level} changes
       <section>
         {showSkillForm ? (
           <SkillForm
