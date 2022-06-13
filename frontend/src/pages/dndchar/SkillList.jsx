@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import './SkillList.css'
 
-export const SkillList = ({items, level}) => {
+export const SkillList = ({items, level, onDelete}) => {
   const [skills, setSkills] = useState([])
 
   useEffect(() => {
@@ -19,6 +19,9 @@ export const SkillList = ({items, level}) => {
     const mergedSkills = []
     for (let name of names) {
       const myItems = filtered.filter(item => item.title === name)
+      if (!myItems || myItems.length === 0) { continue }
+
+      console.log({myItems})
       let rank = 0
       let stat, id
       for (let item of myItems) {
@@ -27,15 +30,27 @@ export const SkillList = ({items, level}) => {
         const statEffect = item.effects.find(e => e.item === 'stat')
         if (statEffect) { stat = statEffect.adder }
       }
-      mergedSkills.push({title:name,rank,stat})
+      mergedSkills.push({title:name,rank,stat, id: myItems[0].id})
     }
 
     setSkills(mergedSkills.sort((a,b) => a.title.localeCompare(b.title)))
   }, [items, level])
 
+  const handleDelete = (skill) => {
+    console.log({handleDelete:skill})
+    const doIt = window.confirm(`Delete the ${skill.title} skill?`)
+    if (doIt) { onDelete(skill.id) }
+  }
+
   const SkillEntry = ({skill}) => {
     return (
       <>
+        {
+          onDelete &&
+          <td>
+            <button onClick={() => handleDelete(skill)}>delete</button>
+          </td>
+        }
         <td>
           {skill.title} { skill.stat && <>({skill.stat})</> }
         </td>

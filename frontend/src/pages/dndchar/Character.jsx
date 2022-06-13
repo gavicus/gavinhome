@@ -64,10 +64,6 @@ export const Character = () => {
     }
   }, [id])
 
-  useEffect(() => {
-    console.log({formData})
-  }, [formData])
-
   const onOverviewChange = (name, value) => {
 
     console.log({name,value})
@@ -127,6 +123,17 @@ export const Character = () => {
       newData.items.push(data)
       setFormData(newData)
     }
+  }
+
+  const handleLevelBoxDelete = (itemId) => {
+    console.log({handleLevelBoxDelete, itemId})
+    console.log({formDataItems:formData.items})
+    const updated = formData.items.filter(item => item.id !== itemId)
+    console.log({updated})
+    const newData = { ...formData }
+    newData.items = updated
+    setFormData(newData)
+    setChanged(true)
   }
 
   const Overview = () => {
@@ -209,6 +216,7 @@ export const Character = () => {
           level={formData.overview.level}
           items={formData.items}
           onChange={handleLevelBoxChange}
+          onDelete={handleLevelBoxDelete}
         />
 
         <ItemBox

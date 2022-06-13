@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 
 import { SkillList } from './SkillList'
 import { SkillForm } from './SkillForm'
+import { FeatList } from './FeatList'
+import './LevelBox.css'
 
-export const LevelBox = ({level, items, onChange}) => {
+export const LevelBox = ({level, items, onChange, onDelete}) => {
   const [formItems, setFormItems] = useState([])
   const [showSkillForm, setShowSkillForm] = useState(false)
 
@@ -26,6 +28,10 @@ export const LevelBox = ({level, items, onChange}) => {
     setShowSkillForm(true)
   }
 
+  const handleDeleteSkill = (skillId) => {
+    onDelete(skillId)
+  }
+
   return (
     <section className="form-section levelling">
       level {level} changes
@@ -41,7 +47,8 @@ export const LevelBox = ({level, items, onChange}) => {
         />
         ) : (
           <>
-            <SkillList level={level} items={formItems} />
+            <SkillList level={level} items={formItems} onDelete={handleDeleteSkill} />
+            <FeatList level={level} items={formItems} />
           </>
         )}
       </section>
