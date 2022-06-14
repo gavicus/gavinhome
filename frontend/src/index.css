@@ -310,3 +310,9 @@ td, th {
   text-align: left;
   padding: 0 5px;
 }
+
+tr.clickable:hover {
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+}

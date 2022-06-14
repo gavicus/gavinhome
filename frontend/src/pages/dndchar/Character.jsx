@@ -9,9 +9,9 @@ import { AttributeForm } from './AttributeForm'
 import { Input } from './Components'
 
 import { ItemBox } from './ItemBox'
-import { SkillForm } from './SkillForm'
 import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
+import { SkillForm } from './SkillForm'
 import { LevelBox } from './LevelBox'
 import './Character.css'
 
@@ -38,6 +38,8 @@ export const Character = () => {
   const [formData, setFormData] = useState(defaultData)
   const [character, setCharacter] = useState(null)
   const [changed, setChanged] = useState(false)
+  const [showSkillEdit, setShowSkillEdit] = useState(false)
+  const [skillToEdit, setSkillToEdit] = useState(null)
 
   useEffect(() => {
     const getTheCharacter = async() => {
@@ -65,9 +67,6 @@ export const Character = () => {
   }, [id])
 
   const onOverviewChange = (name, value) => {
-
-    console.log({name,value})
-
     setChanged(true)
     const newData = {...formData}
     newData.overview[name] = value
@@ -92,7 +91,6 @@ export const Character = () => {
 
   const onChangeItems = (data) => {
     setChanged(true)
-    console.log({onChangeItems: data})
     setFormData(previous => ({
       ...previous,
       items: data,
@@ -110,12 +108,6 @@ export const Character = () => {
     return !formData.overview.name
   }
 
-  const handleSkillFormSubmit = (data) => {
-    // setChanged(true)
-    console.log({formData})
-    console.log({handleSkillFormSubmit:data})
-  }
-
   const handleLevelBoxChange = (data) => {
     if (data) {
       setChanged(true)
@@ -126,14 +118,16 @@ export const Character = () => {
   }
 
   const handleLevelBoxDelete = (itemId) => {
-    console.log({handleLevelBoxDelete, itemId})
-    console.log({formDataItems:formData.items})
     const updated = formData.items.filter(item => item.id !== itemId)
-    console.log({updated})
     const newData = { ...formData }
     newData.items = updated
     setFormData(newData)
     setChanged(true)
+  }
+
+  const handleSkillEdit = (skill) => {
+    setSkillToEdit(skill)
+    setShowSkillEdit(true)
   }
 
   const Overview = () => {
@@ -171,6 +165,26 @@ export const Character = () => {
     )
   }
 
+  const onSkillSubmit = (data) => {
+    if (data) {
+      const skill = formData.items.find(item => item.id === data.id)
+      if (skill) {
+        skill.linkUrl = data.linkUrl
+        skill.notes = data.notes
+      }
+      const updatedData = { ...formData }
+      const otherItems = updatedData.items.filter(item => item.id !== skill.id)
+      updatedData.items = [
+        ...otherItems,
+        skill
+      ]
+      setFormData(updatedData)
+    }
+    setSkillToEdit(null)
+    setShowSkillEdit(false)
+    setChanged(true)
+  }
+
   const onSubmit = () => {
     const data = {
       userId: loggedUser._id,
@@ -196,7 +210,7 @@ export const Character = () => {
           style={{
             fontSize: "1.2em",
             backgroundColor: changed ? "#6c6" : "inherit",
-            color: changed ? "white": "lightgray"
+            color: changed ? "white" : "lightgray",
           }}
         >
           {id ? "save changes" : "create"}
@@ -204,7 +218,6 @@ export const Character = () => {
       </section>
 
       <section className="character-form">
-
         {Overview()}
 
         <AttributeForm
@@ -225,13 +238,17 @@ export const Character = () => {
           onDelete={onDeleteItem}
         />
 
-        <SkillList items={formData.items} level={formData.overview.level} />
-
-        <SkillForm
-          skills={formData.items.filter((item) => item.type === "skill")}
-          onSubmit={handleSkillFormSubmit}
-          level={formData.overview.level}
-        />
+        {
+          showSkillEdit
+          ?
+          <SkillForm skill={skillToEdit} onSubmit={onSkillSubmit} />
+          :
+          <SkillList
+            items={formData.items}
+            level={formData.overview.level}
+            onEdit={handleSkillEdit}
+          />
+        }
 
         <NotesForm items={formData.notes} onChange={onNotesChange} />
       </section>
