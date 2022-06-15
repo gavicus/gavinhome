@@ -48,17 +48,31 @@ export const SkillList = ({items, level, onDelete, onEdit}) => {
 
   const SkillEntry = ({skill}) => {
     return (
-      <tr className={ onEdit ? "clickable" : ""} onClick={() => handleEdit(skill)}>
+      <tr className={ onEdit ? "clickable" : ""}>
         {
           onDelete &&
           <td>
             <button onClick={() => handleDelete(skill)}>delete</button>
           </td>
         }
-        <td>
+        <td onClick={() => handleEdit(skill)}>
           {skill.title} { skill.stat && <>({skill.stat})</> }
         </td>
         <td>{skill.rank}</td>
+        <td>
+          {
+            skill.linkUrl &&
+            <a href={skill.linkUrl} target="_blank">link</a>
+          }
+          {
+            skill.notes &&
+            <div style={{display:'inline-block', marginLeft:'10px'}}>
+              <div className="tooltip">notes
+                <span className="tooltiptext">{skill.notes}</span>
+              </div>
+            </div>
+          }
+        </td>
       </tr>
     )
   }

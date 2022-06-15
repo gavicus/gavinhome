@@ -49,7 +49,7 @@ export const QuestionForm = ({onSubmit, question: original, questionList}) => {
 
   const { subject, type, question, answer, message } = formData
 
-  const subjects = ['japanese','russian']
+  const subjects = ['japanese','russian', 'french']
   const types = {
     japanese: ['hiragana','katakana','kanji','english'],
     russian: ['russian','english'],
