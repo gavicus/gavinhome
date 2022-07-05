@@ -13,6 +13,7 @@ import { NotesForm } from './NotesForm'
 import { SkillList } from './SkillList'
 import { SkillForm } from './SkillForm'
 import { LevelBox } from './LevelBox'
+import { TypedItemForm } from './TypedItemForm'
 import './Character.css'
 
 /*
@@ -231,6 +232,8 @@ export const Character = () => {
           onChange={handleLevelBoxChange}
           onDelete={handleLevelBoxDelete}
         />
+
+        <TypedItemForm />
 
         <ItemBox
           items={formData.items}

@@ -1,0 +1,18 @@
+.typedItemForm {
+  display: grid;
+  grid-template-rows: auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.typedItemForm .formElement {
+  display: grid;
+  grid-template-rows: 21px 30px;
+  justify-items: start;
+}
+
+.typedItemForm .buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+}

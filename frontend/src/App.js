@@ -18,9 +18,11 @@ import { Illum } from './pages/illum/Illum'
 import { FrankMain } from './pages/franklabs/frankmain'
 import { Friday } from './pages/franklabs/friday'
 import { Dots } from './pages/franklabs/dots'
+import { Parallax } from './pages/franklabs/parallax'
 import { Hex } from './pages/hex/hex'
 import { Character } from './pages/dndchar/Character'
 import { CharacterList } from './pages/dndchar/CharacterList'
+import { GmTools } from './pages/gmtools/gmtools'
 
 function App() {
   return (
@@ -46,10 +48,12 @@ function App() {
           <Route path='/frankmain' element={<FrankMain />} />
           <Route path='/friday' element={<Friday />} />
           <Route path='/dots' element={<Dots />} />
+          <Route path='/parallax' element={<Parallax />} />
           <Route path='/hex' element={<Hex />} />
           <Route path='/character' element={<Character />} />
           <Route path='/character/:id' element={<Character />} />
           <Route path='/characterlist' element={<CharacterList />} />
+          <Route path='/gmtools' element={<GmTools />} />
         </Routes>
         </div>
       </div>

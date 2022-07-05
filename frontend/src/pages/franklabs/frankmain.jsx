@@ -7,6 +7,7 @@ export const FrankMain = () => {
       <section className="links" style={{display:'flex', flexDirection:'column'}}>
         <Link to='/friday'>Friday</Link>
         <Link to='/dots'>Dots</Link>
+        <Link to='/parallax'>Parallax</Link>
       </section>
     </>
   )

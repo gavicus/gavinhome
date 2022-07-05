@@ -18,9 +18,7 @@ const Questions = () => {
   const { questions, isLoading, isError, message } = useSelector((state) => state.questions)
 
   useEffect(() => {
-    if (isError) {
-      console.log('error',message)
-    }
+    if (isError) { console.log('error',message) }
 
     if (!user || !user.admin) {
       navigate('/login')

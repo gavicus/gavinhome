@@ -311,7 +311,7 @@ td, th {
   padding: 0 5px;
 }
 
-tr.clickable:hover {
+tr.clickable:hover, td.clickable:hover {
   background-color: #444;
   color: white;
   cursor: pointer;
@@ -326,7 +326,7 @@ tr.clickable:hover {
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  width: 250px;
   background-color: rgb(232, 219, 202);
   font-size: .8em;
   color: black;

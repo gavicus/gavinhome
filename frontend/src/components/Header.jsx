@@ -30,6 +30,7 @@ export const Header = () => {
     { name: 'Frank Labs', link: '/frankmain' },
     { name: 'Hex', link: '/hex' },
     { name: 'Characters', link: '/characterlist' },
+    { name: 'Gm Tools', link: '/gmtools' },
     { name: 'Test', link: '/test' },
   ]
 
@@ -66,17 +67,15 @@ export const Header = () => {
 
   return (
     <header className='header'>
-
       <div className='logo'>
         <Link to='/'>
-          <img src={logoImage} />
+          <img alt="logo" src={logoImage} />
           <div className='logotext'>
             Home
           </div>
         </Link>
       </div>
       { user ? <UserItems /> : <GuestItems /> }
-
     </header>
   )
 }

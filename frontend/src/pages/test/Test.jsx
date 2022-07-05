@@ -2,6 +2,10 @@ import { TestCreateScore } from './TestCreateScore'
 import { TestGetScores } from './TestGetScores'
 import { TestUpdateScore } from './TestUpdateScore'
 import { TestDeleteScore } from './TestDeleteScore'
+import { TestCreateGmdoc } from './TestCreateGmdoc'
+import { TestGetGmdoc } from './TestGetGmdoc'
+import { TestListGmdocs } from './TestListGmdocs'
+import { TestWrapper } from "./TestWrapper"
 
 export const Test = () => {
   return (
@@ -10,11 +14,22 @@ export const Test = () => {
         <h3>Testing</h3>
       </section>
 
-      <TestDeleteScore />
+      <TestWrapper
+        title="gmdoc tests"
+      >
+        <TestListGmdocs />
+        <TestGetGmdoc />
+        <TestCreateGmdoc />
+      </TestWrapper>
 
-      <TestUpdateScore />
-      <TestGetScores />
-      <TestCreateScore />
+      <TestWrapper
+        title="score tests"
+      >
+        <TestDeleteScore />
+        <TestUpdateScore />
+        <TestGetScores />
+        <TestCreateScore />
+      </TestWrapper>
 
     </>
   )
