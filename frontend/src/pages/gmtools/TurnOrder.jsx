@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import gmdocService from '../../features/gmdoc/gmdocService'
 
+const npcColor = "#a00"
+
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -13,34 +15,63 @@ const StyledLeftPane = styled.div`
   flex-direction: column;
   align-items: flex-start;
   font-size: .8em;
+  width: 150px;
+`
+
+const ListEntry = styled.div`
+  text-align: left;
+  padding: 0 3px;
+  &:hover {
+    cursor: pointer;
+    background: #444;
+    color: white;
+    &.npc {
+      background: ${npcColor};
+      color: white;
+    }
+  }
+  &.npc {
+    color: ${npcColor};
+  }
 `
 
 const StyledRightPane = styled.div`
   border: 1px solid gray;
-  padding: 10px;
+  padding-top: 10px;
 `
 
 const StyledTable = styled.table`
   border-collapse: collapse;
 `
 
+const StyledHeader = styled.th`
+  font-weight: normal;
+  text-align: center;
+  color: white;
+  background: #777;
+`
+
 const StyledSegmentDatum = styled.td`
   font-size: .7em;
-  padding: 8px;
+  padding: 10px;
   border-right: 1px solid gray;
+  min-width: 30px;
+  line-height: .9em;
   &.current {
     color: yellow;
     background: #444;
     font-weight: bold;
+    &.npc {
+      color: white;
+      background: ${npcColor};
+    }
   }
-`
-
-const StyledHeader = styled.th`
-  font-weight: normal;
-  &.current {
-    font-weight: bold;
+  &.lastColumn {
+    border-right: none;
   }
-  text-align: center;
+  &.npc {
+    color: ${npcColor};
+  }
 `
 
 const Controls = styled.div`
@@ -55,7 +86,7 @@ const ControlButton = styled.button`
   padding: 5px;
 `
 
-export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
+export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => {
   const [characters, setCharacters] = useState(null)
   const [segments, setSegments] = useState(null)
   const [rows, setRows] = useState(null)
@@ -79,9 +110,7 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
 
   useEffect(()=>{
     computeRows()
-  },[
-    segments
-  ])
+  },[segments])
 
   const speedInSegment = (speed, segment) => {
     if (speed === 12) return true;
@@ -104,7 +133,7 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
     const segs = {}
     for (let i=1; i<=12; ++i) {
       const segAry = []
-      for (const char of characters) {
+      for (const char of characters.filter(c => c.doc.active)) {
         const speed = parseInt(char.doc.speed)
         if (speedInSegment(speed, i)) {
           segAry.push(char)
@@ -158,12 +187,6 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
     onChange()
   }
 
-  const getCache = (name) => {
-    const cache = gmdocs.find(d => d.type === 'cache')
-    if (!cache) return null
-    return cache.doc.turnOrder[name]
-  }
-
   const handleNextTurn = (back) => {
     let segmentIndex = selection.segmentIndex
     let rowIndex = selection.rowIndex
@@ -196,6 +219,10 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
     changeCache('rowIndex',0)
   }
 
+  const handleClickEntry = (character) => {
+    onSelectCharacter(character)
+  }
+
   const TurnChart = () => {
     let keyIndex = 0
     return (
@@ -212,12 +239,7 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
                 Object.keys(segments).map(k => {
                   ++keyIndex
                   return (
-                    <StyledHeader
-                      key={`header-${keyIndex}`}
-                      className={
-                        parseInt(k) === selection.segmentIndex ? "current" : ""
-                      }
-                    >
+                    <StyledHeader key={`header-${keyIndex}`}>
                       {k}
                     </StyledHeader>
                   );
@@ -238,10 +260,18 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
                           <StyledSegmentDatum
                             key={`datum-${keyIndex}`}
                             className={
+                              `${
                               thisIndex === selection.rowIndex
                               && columnIndex === selection.segmentIndex
                                 ? "current"
                                 : ""
+                              } ${
+                                columnIndex === 12 ? 'lastColumn' : ''
+                              } ${
+                                entry?.doc.npc
+                                  ? "npc"
+                                  : ""
+                              }`
                             }
                           >
                             {entry ? entry.doc.name : null}
@@ -259,17 +289,26 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange}) => {
     )
   }
 
+  const CharacterList = () => {
+    return (
+      <StyledLeftPane>
+        {characters.map((c) => (
+          <ListEntry
+            className={`${c.doc.npc ? "npc" : ""}`}
+            key={c._id}
+            onClick={() => handleClickEntry(c)}
+          >
+            {c.doc.name}
+          </ListEntry>
+        ))}
+      </StyledLeftPane>
+    );
+  }
+
   return (
     <>
-      <p>turns</p>
       <StyledWrapper>
-        { characters &&
-          <StyledLeftPane>
-            {
-              characters.map(c => <p key={c._id}>{c.doc.player} / {c.doc.name}</p>)
-            }
-          </StyledLeftPane>
-        }
+        { characters && <CharacterList /> }
         { rows &&
           <StyledRightPane>
             <TurnChart/>

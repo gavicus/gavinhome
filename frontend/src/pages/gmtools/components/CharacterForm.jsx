@@ -19,18 +19,23 @@ const FormGroup = styled.div`
 `
 
 export const CharacterForm = ({data, onSubmit}) => {
-  const fieldNames = ['player','name','speed','dex','hp','stun']
-  const defaults = fieldNames.reduce((acc, cur) => {
-    return {
-      ...acc,
-      [cur]: ''
-    }
-  }, {})
+  const defaults = {
+    player: '',
+    name: '',
+    speed: '',
+    dex: '',
+    hp: '',
+    stun: '',
+    active: '',
+    npc: '',
+  }
+  const [passedData, setPassedData] = useState(null)
   const [formData, setFormData] = useState(defaults)
 
   useEffect(() => {
     if (data) {
-      setFormData(data)
+      setPassedData(data)
+      setFormData(data.doc)
     }
   }, [data])
 
@@ -51,10 +56,10 @@ export const CharacterForm = ({data, onSubmit}) => {
     <StyledCharacterForm>
       <p>character</p>
 
-      { fieldNames.map(fn => (
+      { Object.keys(defaults).map(fn => (
         <FormGroup key={fn}>
           <label htmlFor={fn}>{fn}</label>
-          <input name={fn} value={formData[fn]} onChange={handleChange} />
+          <input type="text" name={fn} value={formData[fn]} onChange={handleChange} />
         </FormGroup>
       ))}
 

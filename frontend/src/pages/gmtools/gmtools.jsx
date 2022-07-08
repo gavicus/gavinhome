@@ -18,6 +18,7 @@ export const GmTools = () => {
   const [campaignList, setCampaignList] = useState()
   const [selectedCampaign, setSelectedCampaign] = useState(null)
   const [showTab, setShowTab] = useState(null)
+  const [selectedCharacter, setSelectedCharacter] = useState(null)
 
   const { user: loggedUser } = useSelector((state) => state.auth)
 
@@ -65,7 +66,13 @@ export const GmTools = () => {
       type: "character",
       doc: { ...data, campaign: selectedCampaign },
     };
-    gmdocService.createGmdoc(gmdoc, loggedUser.token)
+    if (selectedCharacter) {
+      gmdoc._id = selectedCharacter._id
+      gmdocService.updateGmdoc(gmdoc, loggedUser.token)
+    } else {
+      gmdocService.createGmdoc(gmdoc, loggedUser.token)
+    }
+    setSelectedCharacter(null)
     setShowTab(null)
   }
 
@@ -73,36 +80,42 @@ export const GmTools = () => {
     loadGmDocs()
   }
 
+  const handleSelectCharacter = (character) => {
+    setSelectedCharacter(character)
+    setShowTab('character')
+  }
+
   const menuOptions = ['campaign','character','turns']
   return (
     <PageStandard title="gm tools">
-      {
-        campaignList && campaignList.length > 0 &&
+      {campaignList && campaignList.length > 0 && (
         <>
           <span>campaign </span>
           <select name="campaignSelection" onChange={handleCampaignSelect}>
-            { campaignList.map(c => (
+            {campaignList.map((c) => (
               <option key={c._id} value={c._id}>
                 {c.doc.title}
               </option>
-            )) }
+            ))}
           </select>
         </>
-      }
-      
+      )}
+
       <ButtonMenu onClick={handleButtonMenu} options={menuOptions} />
-      {
-        showTab === 'campaign' &&
+      {showTab === "campaign" && (
         <CampaignForm onSubmit={handleCampaignSubmit} />
-      }
-      {
-        showTab === 'character' &&
-        <CharacterForm onSubmit={handleCharacterSubmit} />
-      }
-      {
-        showTab === 'turns' &&
-        <TurnOrder loggedUser={loggedUser} gmdocs={gmdocs} onChange={handleTurnOrderChange} />
-      }
+      )}
+      {showTab === "character" && (
+        <CharacterForm onSubmit={handleCharacterSubmit} data={selectedCharacter} />
+      )}
+      {showTab === "turns" && (
+        <TurnOrder
+          loggedUser={loggedUser}
+          gmdocs={gmdocs}
+          onChange={handleTurnOrderChange}
+          onSelectCharacter={handleSelectCharacter}
+        />
+      )}
     </PageStandard>
-  )
+  );
 }
