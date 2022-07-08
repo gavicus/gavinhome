@@ -7,6 +7,7 @@ const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: fit-content;
 `
 
 const StyledElement = styled.div`
@@ -43,6 +44,7 @@ export const CampaignForm = ({onSubmit}) => {
 
   return (
     <StyledForm>
+      <p>campaign</p>
       {
         Object.keys(defaults).map(k => (
           <StyledElement key={k}>
