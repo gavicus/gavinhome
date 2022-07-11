@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import gmdocService from '../../features/gmdoc/gmdocService'
 
 const npcColor = "#a00"
+const hovBack = "#ccc"
+const hovColor = "black"
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -33,6 +35,10 @@ const ListEntry = styled.div`
   &.npc {
     color: ${npcColor};
   }
+  &.characterHovered {
+    background: ${hovBack};
+    color: ${hovColor};
+  }
 `
 
 const StyledRightPane = styled.div`
@@ -57,6 +63,7 @@ const StyledSegmentDatum = styled.td`
   border-right: 1px solid gray;
   min-width: 30px;
   line-height: .9em;
+  cursor: pointer;
   &.current {
     color: yellow;
     background: #444;
@@ -72,13 +79,18 @@ const StyledSegmentDatum = styled.td`
   &.npc {
     color: ${npcColor};
   }
+  &.characterHovered {
+    background: ${hovBack};
+    color: ${hovColor};
+  }
 `
 
 const Controls = styled.div`
+  padding: 0 10px;
   display: flex;
   flex-direction: row;
-  gap: 5px;
-  justify-content: center;
+  gap: 10px;
+  justify-content: start;
   margin-bottom: 10px;
 `
 
@@ -91,6 +103,7 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => 
   const [segments, setSegments] = useState(null)
   const [rows, setRows] = useState(null)
   const [selection, setSelection] = useState(null)
+  const [hoveredCharacter, setHoveredCharacter] = useState(null)
   
   useEffect(() => {
     if (gmdocs) {
@@ -223,6 +236,14 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => 
     onSelectCharacter(character)
   }
 
+  const handleMouseOver = (character) => {
+    setHoveredCharacter(character)
+  }
+
+  const handleMouseOut = () => {
+    setHoveredCharacter(null)
+  }
+
   const TurnChart = () => {
     let keyIndex = 0
     return (
@@ -231,6 +252,15 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => 
           <ControlButton onClick={handleReset}>reset</ControlButton>
           <ControlButton onClick={() => handleNextTurn(true)}>back</ControlButton>
           <ControlButton onClick={() => handleNextTurn(false)}>next</ControlButton>
+          {
+            hoveredCharacter &&
+            `
+              ${hoveredCharacter.doc.name}
+              spd${hoveredCharacter.doc.speed}/dex${hoveredCharacter.doc.dex}
+              ${hoveredCharacter.doc.hp && `hp:${hoveredCharacter.doc.hp}`}
+              ${hoveredCharacter.doc.stun && `stun:${hoveredCharacter.doc.stun}`}
+            `
+          }
         </Controls>
         <StyledTable>
           <thead>
@@ -259,6 +289,8 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => 
                         return (
                           <StyledSegmentDatum
                             key={`datum-${keyIndex}`}
+                            onMouseOver={() => handleMouseOver(entry)}
+                            onMouseOut={handleMouseOut}
                             className={
                               `${
                               thisIndex === selection.rowIndex
@@ -271,6 +303,9 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => 
                                 entry?.doc.npc
                                   ? "npc"
                                   : ""
+                              } ${
+                                entry && hoveredCharacter && entry._id === hoveredCharacter._id &&
+                                "characterHovered"
                               }`
                             }
                           >
@@ -294,9 +329,19 @@ export const TurnOrder = ({loggedUser, gmdocs, onChange, onSelectCharacter}) => 
       <StyledLeftPane>
         {characters.map((c) => (
           <ListEntry
-            className={`${c.doc.npc ? "npc" : ""}`}
+            className={`
+                ${c.doc.npc ? "npc" : ""}
+                ${
+                  c &&
+                  hoveredCharacter &&
+                  c._id === hoveredCharacter._id &&
+                  "characterHovered"
+                }
+              `}
             key={c._id}
             onClick={() => handleClickEntry(c)}
+            onMouseOver={() => handleMouseOver(c)}
+            onMouseOut={handleMouseOut}
           >
             {c.doc.name}
           </ListEntry>
