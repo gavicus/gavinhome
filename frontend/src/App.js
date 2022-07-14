@@ -23,6 +23,7 @@ import { Hex } from './pages/hex/hex'
 import { Character } from './pages/dndchar/Character'
 import { CharacterList } from './pages/dndchar/CharacterList'
 import { GmTools } from './pages/gmtools/gmtools'
+import { HelloCube } from './pages/threejs/HelloCube'
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           <Route path='/character/:id' element={<Character />} />
           <Route path='/characterlist' element={<CharacterList />} />
           <Route path='/gmtools' element={<GmTools />} />
+          <Route path='/hellocube' element={<HelloCube />} />
         </Routes>
         </div>
       </div>
