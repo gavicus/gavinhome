@@ -1,6 +1,9 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.19.1"
+  },
   "proxy": "http://localhost:5100",
   "private": true,
   "dependencies": {

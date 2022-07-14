@@ -135,6 +135,9 @@ export const HelloCube = () => {
         array[i + 1] =
           originalPosition[i + 1] +
           Math.sin(frame * 0.1 + randomValues[i + 1] * randFactor) * 0.002;
+        array[i + 2] =
+          originalPosition[i + 2] +
+          Math.sin(frame * 0.1 + randomValues[i + 2] * randFactor) * 0.002;
       }
       planeMesh.geometry.attributes.position.needsUpdate = true
 
