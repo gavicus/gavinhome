@@ -51,7 +51,9 @@ export const QuestionEdit = () => {
       answer: question.question,
       message: question.message,
     }
-    const existing = questions.find(q => q.question === data.question)
+    const existing = questions.find(
+      (q) => q.question === data.question && q.subject === data.subject
+    );
     if (existing) {
       alert(`question "${data.question}" already exists`)
     } else {

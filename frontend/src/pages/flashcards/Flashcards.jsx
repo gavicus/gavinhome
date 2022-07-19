@@ -44,6 +44,8 @@ const Flashcards = () => {
     const scoreEntries = createScoreEntries(dbScores,questions,user)
     const oneThird = Math.floor(questionCount * .33)
 
+    console.log({scoreEntries})
+
     let selectionBatch = scoreEntries
       .filter(e => e.subject === selectedSubject)
       .sort((a,b) => a.right + a.wrong - (b.right + b.wrong))

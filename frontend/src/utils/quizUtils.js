@@ -5,7 +5,11 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
 
   amendedScores = amendedScores.filter((score) => {
     const question = questionList.find(q => q._id === score.question)
-    if (!question) { return false }
+    if (!question) {
+      console.log({score})
+      console.log(`score has no associated question`)
+      return false
+    }
     return true
   })
 
@@ -26,9 +30,6 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
     const percentage = trys ? s.right / trys : 0
     const score = Math.floor(percentage * 100)
     const question = questionList.find(q => q._id === s.question)
-
-    // console.log({question})
-
     try {
       return ({
         question: question.question,
@@ -48,6 +49,7 @@ export const createScoreEntries = (scoreList, questionList, loggedUser) => {
       console.log({s})
       console.log({questionList})
       console.log({e})
+      return 'error'
     }
   } )
 }

@@ -28,7 +28,12 @@ export const QuestionNew = () => {
   }, [user, navigate])
 
   const onSubmit = (data) => {
-    const existing = questions.find(q => q.question === data.question)
+
+    console.log({data})
+
+    const existing = questions.find(
+      (q) => q.question === data.question && q.subject === data.subject
+    );
     if (existing) {
       alert(`question "${data.question}" already exists`)
     } else {

@@ -67,7 +67,7 @@ const QuestionList = ({questions}) => {
       </thead>
       <tbody>
         {sorted.map((question) => (
-          <QuestionRow question={question} key={question.question} />
+          <QuestionRow question={question} key={`${question.subject}:${question.question}`} />
         ))}
       </tbody>
     </table>

@@ -11,16 +11,16 @@ export const TodoList = () => {
   const { user: loggedUser } = useSelector((state) => state.auth)
   const navigate = useNavigate()
 
-  const getTheTodos = async() => {
-    const reply = await todoService.getTodos(
-      { userId: loggedUser._id },
-      loggedUser.token
-    );
-    if (!reply) { return }
-    setTodos(reply)
-  }
-
   useEffect(() => {
+    const getTheTodos = async() => {
+      const reply = await todoService.getTodos(
+        { userId: loggedUser._id },
+        loggedUser.token
+      );
+      if (!reply) { return }
+      setTodos(reply)
+    }
+  
     getTheTodos()
   }, [])
 
