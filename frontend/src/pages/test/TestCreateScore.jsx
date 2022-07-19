@@ -22,15 +22,16 @@ export const TestCreateScore = () => {
 
   const { user, subject, question, right, wrong } = formData
   const dispatch = useDispatch()
-  const { questions, isLoading, isError, message } = useSelector(
+  const { questions } = useSelector(
     (state) => state.questions
   );
   const { user: loggedUser } = useSelector((state) => state.auth)
 
   useEffect(() => {
+    console.log('dispatch')
     dispatch(getQuestions())
     return () => { dispatch(reset()) }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     const fetchData = async() => {

@@ -30,6 +30,7 @@ export const HelloCube = () => {
     renderer.setPixelRatio(devicePixelRatio)
     
     controls = new OrbitControls(camera, canvas)
+    console.log({controls})
 
     raycaster = new THREE.Raycaster()
 

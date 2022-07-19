@@ -22,7 +22,7 @@ export const TodoList = () => {
     }
   
     getTheTodos()
-  }, [])
+  }, [loggedUser])
 
   const onClickRow = (id) => {
     navigate(`/todoedit/${id}`)

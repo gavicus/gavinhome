@@ -63,6 +63,8 @@ export class Control {
       case '_':
         this.view.zoomOut()
         break;
+      default:
+        break
     }
     return false
   }
