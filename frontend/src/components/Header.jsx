@@ -31,7 +31,7 @@ export const Header = () => {
     { name: 'Hex', link: '/hex' },
     { name: 'Characters', link: '/characterlist' },
     { name: 'Gm Tools', link: '/gmtools' },
-    { name: 'Hello Cube', link: '/hellocube'},
+    { name: 'Hello Cube', link: '/threejs/hellocube'},
     { name: 'Test', link: '/test' },
   ]
 

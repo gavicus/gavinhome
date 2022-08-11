@@ -9,9 +9,14 @@ const StyledRow = styled.div`
 
 const StyledButton = styled.button`
   padding: 5px;
+  background: ${props => props.current ? "white" : "lightgray"};
+  font-weight: ${props => props.current ? "bold" : "normal"};
+  border-radius: 10px;
+  border: 2px solid gray;
+  cursor: pointer;
 `
 
-export const ButtonMenu = ({options, onClick}) => {
+export const ButtonMenu = ({options, onClick, current}) => {
   const handleClick = (opt) => {
     onClick(opt)
   }
@@ -20,7 +25,13 @@ export const ButtonMenu = ({options, onClick}) => {
     <StyledRow>
     {
       options.map(o => (
-        <StyledButton key={o} onClick={() => handleClick(o)}>{o}</StyledButton>
+        <StyledButton
+          current={current === o}
+          key={o}
+          onClick={() => handleClick(o)}
+        >
+          {o}
+        </StyledButton>
       ))
     }
     </StyledRow>

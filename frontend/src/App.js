@@ -23,7 +23,8 @@ import { Hex } from './pages/hex/hex'
 import { Character } from './pages/dndchar/Character'
 import { CharacterList } from './pages/dndchar/CharacterList'
 import { GmTools } from './pages/gmtools/gmtools'
-import { HelloCube } from './pages/threejs/HelloCube'
+import { Threejs } from './pages/threejs/threejs'
+import { Guitar } from './pages/guitar/guitar'
 
 function App() {
   return (
@@ -55,7 +56,8 @@ function App() {
           <Route path='/character/:id' element={<Character />} />
           <Route path='/characterlist' element={<CharacterList />} />
           <Route path='/gmtools' element={<GmTools />} />
-          <Route path='/hellocube' element={<HelloCube />} />
+          <Route path='/threejs/*' element={<Threejs />} />
+          <Route path='/guitar' element={<Guitar />} />
         </Routes>
         </div>
       </div>
