@@ -25,6 +25,15 @@ export const Dashboard = () => {
         position: 'right',
       },
     },
+    {
+      caption: 'Guitar',
+      detail: 'practice',
+      link: '/guitar',
+      image: {
+        url: 'https://cdn.mos.cms.futurecdn.net/Yh6r74b8CAj2jbdf2FAhq4.jpg',
+        size: '180%',
+      }
+    },
   ]
 
   return (
